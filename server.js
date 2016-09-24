@@ -80,14 +80,23 @@ app.get('/users', function (req, res) {
   });
 });
 
-app.get('/appartments/:name', function (req, res) {
+app.get('/appartmentsByName/:name', function (req, res) {
   var name = req.params.name;
   console.log('I received a GET request for appartments with name: ' + name);
-
   db.openhouse.find({username: name}, function (err, doc) {
     res.json(doc);
   });
+});
 
+app.get('/pullAppartmentsAggreatesByName/:name', function (req, res) {
+  var name = req.params.name;
+  console.log('I received a GET request for appartments aggregates with name: ' + name);
+
+  db.openhouse.aggregate([
+    { $group: { _id: "$username", averageCost: { $avg: "$cost" } } }
+  ], function(err, doc) {
+    res.json(doc[0]);
+  });
 });
 
 app.get('/openhouse', function (req, res) {

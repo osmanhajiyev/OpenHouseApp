@@ -3,13 +3,57 @@
 <head>
 
 </head>
-<div class="container" ng-controller="AppCtrl">
+<div class="container" ng-controller="AppCtrl" ng-init="pullAppartmentsByName(userprofile.username)">
 <h1>OpenHouse</h1>
-<h2> {{ userprofile.username }}<h2>
-<h2> {{ userprofile._id }}<h2>
 
-<button ng-click="pullAppartments(userprofile.username)">Pull</button>
+<h2>Places you have lived</h2>
+<table class="table">
+  <tbody>
+    <thead>
+      <th></th>
+      <th>Cost</th>
+      <th>Zipcode</th>
+      <th>Unit Type</th>
+      <th>Bedrooms</th>
+      <th>Bathrooms</th>
+      <th>Schools</th>
+      <th>Community</th>
+      <th>Food</th>
+      <th>Nightlife</th>
+      <th>Transit</th>
+    </thead>
+    <tr ng-repeat="appartment in appartmentList">
+      <td></td>
+      <td>{{appartment.cost}}</td>
+      <td>{{appartment.zipcode}}</td>
+      <td>{{appartment.unitType}}</td>
+      <td>{{appartment.bedrooms}}</td>
+      <td>{{appartment.bathrooms}}</td>
+      <td>{{appartment.landlord}}</td>
+      <td>{{appartment.satisfied}}</td>
+      <td>{{appartment.food}}</td>
+      <td>{{appartment.schools}}</td>
+      <td>{{appartment.community}}</td>
+      <td>{{appartment.nightlife}}</td>
+      <td>{{appartment.transit}}</td>
+    </tr>
+    <tfoot>
+      <td>Averages</td>
+      <td>{{averages.averageCost}}</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tfoot>
+  </tbody>
+</table>
 </div>
-
 </body>
 </html>

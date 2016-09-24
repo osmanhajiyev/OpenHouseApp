@@ -33,11 +33,20 @@ var refresh = function() {
   });
 };
 
-$scope.pullAppartments = function(name) {
+$scope.pullAppartmentsByName = function(name) {
   console.log("pulling appartments with name: " + name);
-  $http.get('/appartments/' + name).success(function(response) {
+  $http.get('/appartmentsByName/' + name).success(function(response) {
+    $scope.appartmentList = response;
     console.log("I got the appartments I requested with name: " + name);
-    console.log(response);
+    $scope.pullAppartmentsAggreatesByName(name);
+  });
+}
+
+$scope.pullAppartmentsAggreatesByName = function(name) {
+  console.log("pulling appartments aggregates with name: " + name);
+  $http.get('/pullAppartmentsAggreatesByName/' + name).success(function(response) {
+    $scope.averages = response;
+    console.log($scope.averages);
   });
 }
 
