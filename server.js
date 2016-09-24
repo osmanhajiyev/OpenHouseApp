@@ -80,6 +80,14 @@ app.get('/users', function (req, res) {
   });
 });
 
+app.get('/appartments', function (req, res) {
+  console.log('I received a GET request for appartments');
+  db.openhouse.find(function (err, docs) {
+    console.log(docs);
+    res.json(docs);
+  });
+});
+
 app.get('/openhouse', function (req, res) {
   console.log('I received a GET request updated');
   db.openhouse.find(function (err, docs) {
@@ -116,7 +124,7 @@ app.put('/openhouse/:id', function (req, res) {
   console.log(req.body.name);
   db.openhouse.findAndModify({
     query: {_id: mongojs.ObjectId(id)},
-    update: {$set: {cost: req.body.cost, unitType: req.body.unitType, bedrooms: req.body.bedrooms, 
+    update: {$set: {cost: req.body.cost, unitType: req.body.unitType, bedrooms: req.body.bedrooms,
       bathrooms: req.body.bathrooms, landlord: req.body.landlord, satisfied: req.body.satisfied,  food: req.body.food,
       schools: req.body.schools, community: req.body.community, nightlife: req.body.nightlife,
       transit: req.body.transit

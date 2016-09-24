@@ -33,6 +33,12 @@ var refresh = function() {
   });
 };
 
+$scope.pullAppartments = function(id) {
+  console.log("I got the appartments I requested with id: " + id);
+  // $http.get('/appartments' + id).success(function(response) {
+  //
+  // });
+}
 
 $scope.register = function(){
   $http.post('/register', $scope.vm)
@@ -80,7 +86,7 @@ $scope.edit = function(id) {
   $http.get('/openhouse/' + id).success(function(response) {
     $scope.user = response;
   });
-};  
+};
 
 $scope.update = function() {
   console.log($scope.user._id);
