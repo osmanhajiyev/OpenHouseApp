@@ -48,8 +48,8 @@ app.put('/openhouse/:id', function (req, res) {
     query: {_id: mongojs.ObjectId(id)},
     update: {$set: {cost: req.body.cost, unitType: req.body.unitType, bedrooms: req.body.bedrooms, 
       bathrooms: req.body.bathrooms, satisfied: req.body.satisfied, food: req.body.food,
-      schools: req.body.schools, community: req.body.community, : req.body.nightlife,
-      chools: req.body.schools
+      schools: req.body.schools, community: req.body.community, nightlife: req.body.nightlife,
+      transit: req.body.transit
     }},
     new: true}, function (err, doc) {
       res.json(doc);
