@@ -1,0 +1,74 @@
+﻿html, body {
+	width: 100%;
+	height: 100%;
+}
+
+input[type="time"] {
+	margin: -.6ex 0 0 0;
+	border: none;
+	outline: none;
+	background: none;
+	font: inherit;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+input[type="range"] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	width: 100%;
+	outline: none;
+	background: #aaa;
+	margin: 26px 0 0 0;
+	height: 1px;
+}
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	width: 13px;
+	height: 13px;
+	background: white;
+	border: 1px solid black;
+	box-sizing: border-box;
+	border-radius: 100%;
+}
+
+#map {
+    width: 50%;
+	height: 100%;
+}
+.infoWindowContent {
+    font-size:  14px !important;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.side {
+	width: 300px;
+	position: fixed;
+	z-index: 1;
+}
+
+.chrono {
+	height: 100px;
+	font-size: 16pt;
+	font-weight: 300;
+}
+.day {
+	float: left;
+}
+.time {
+	float: right;
+}
+
+.about p:first-child {
+	margin-top: 0;
+}
+.about p:last-child {
+	margin-bottom: 0;
+}
+
+.filters fieldset:last-child {
+	margin-bottom: 0;
+}
