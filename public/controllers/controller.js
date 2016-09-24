@@ -33,6 +33,22 @@ var refresh = function() {
   });
 };
 
+$scope.pullAppartmentsByName = function(name) {
+  console.log("pulling appartments with name: " + name);
+  $http.get('/appartmentsByName/' + name).success(function(response) {
+    $scope.appartmentList = response;
+    console.log("I got the appartments I requested with name: " + name);
+    $scope.pullAppartmentsAggreatesByName(name);
+  });
+}
+
+$scope.pullAppartmentsAggreatesByName = function(name) {
+  console.log("pulling appartments aggregates with name: " + name);
+  $http.get('/pullAppartmentsAggreatesByName/' + name).success(function(response) {
+    $scope.averages = response;
+    console.log($scope.averages);
+  });
+}
 
 $scope.register = function(){
   $http.post('/register', $scope.vm)
@@ -85,7 +101,7 @@ $scope.edit = function(id) {
   $http.get('/openhouse/' + id).success(function(response) {
     $scope.user = response;
   });
-};  
+};
 
 $scope.update = function() {
   console.log($scope.user._id);
@@ -98,9 +114,7 @@ $scope.deselect = function() {
   $scope.user = "";
 }
 
-
 }]);﻿
-
 
 myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', function($scope, $http, $rootScope, $location) {
  var mapOptions = {
@@ -112,28 +126,28 @@ myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', funct
               $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
               $scope.markers = [];
-              
+
               var infoWindow = new google.maps.InfoWindow();
-              
+
               var createMarker = function (info){
-                  
+
                   var marker = new google.maps.Marker({
                       map: $scope.map,
                       position: new google.maps.LatLng(info.lat, info.long),
                       title: info.place
                   });
                   marker.content = '<div class="infoWindowContent">' + info.desc + '<br />' + info.lat + ' E,' + info.long +  ' N, </div>';
-                  
+
                   google.maps.event.addListener(marker, 'click', function(){
-                      infoWindow.setContent('<h2>' + marker.title + '</h2>' + 
+                      infoWindow.setContent('<h2>' + marker.title + '</h2>' +
                         marker.content);
                       infoWindow.open($scope.map, marker);
                   });
-                  
+
                   $scope.markers.push(marker);
-                  
-              }  
-              
+
+              }
+
 
               $scope.openInfoWindow = function(e, selectedMarker){
                   e.preventDefault();

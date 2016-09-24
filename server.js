@@ -80,6 +80,25 @@ app.get('/users', function (req, res) {
   });
 });
 
+app.get('/appartmentsByName/:name', function (req, res) {
+  var name = req.params.name;
+  console.log('I received a GET request for appartments with name: ' + name);
+  db.openhouse.find({username: name}, function (err, doc) {
+    res.json(doc);
+  });
+});
+
+app.get('/pullAppartmentsAggreatesByName/:name', function (req, res) {
+  var name = req.params.name;
+  console.log('I received a GET request for appartments aggregates with name: ' + name);
+
+  db.openhouse.aggregate([
+    { $group: { _id: "$username", averageCost: { $avg: "$cost" } } }
+  ], function(err, doc) {
+    res.json(doc[0]);
+  });
+});
+
 app.get('/openhouse', function (req, res) {
   console.log('I received a GET request updated');
   db.openhouse.find(function (err, docs) {
@@ -98,9 +117,11 @@ app.post('/openhouse', function (req, res) {
 app.delete('/openhouse/:id', function (req, res) {
   var id = req.params.id;
   console.log(id);
+
   db.openhouse.remove({_id: mongojs.ObjectId(id)}, function (err, doc) {
     res.json(doc);
   });
+
 });
 
 app.get('/openhouse/:id', function (req, res) {
@@ -116,7 +137,7 @@ app.put('/openhouse/:id', function (req, res) {
   console.log(req.body.name);
   db.openhouse.findAndModify({
     query: {_id: mongojs.ObjectId(id)},
-    update: {$set: {cost: req.body.cost, unitType: req.body.unitType, bedrooms: req.body.bedrooms, 
+    update: {$set: {cost: req.body.cost, unitType: req.body.unitType, bedrooms: req.body.bedrooms,
       bathrooms: req.body.bathrooms, landlord: req.body.landlord, satisfied: req.body.satisfied,  food: req.body.food,
       schools: req.body.schools, community: req.body.community, nightlife: req.body.nightlife,
       transit: req.body.transit
