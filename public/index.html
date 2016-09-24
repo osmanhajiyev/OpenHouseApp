@@ -7,36 +7,69 @@
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 
-  <title>Contact List App</title>
+  <title>OpenHouse</title>
 </head>
 <body>
   <div class="container" ng-controller="AppCtrl">
-    <h1>Contact List App</h1>
+    <h1>OpenHouse</h1>
 
     <table class="table">
       <thead>
         <tr>
-          <th>Name</th>         
-          <th>Email</th>
-          <th>Number</th>
-          <th>Action</th>
+          <th>What do you pay in rent?</th>  <td><input class="form-control" ng-model="user.cost"></td>
+        </tr>
+        <tr>       
+          <th>Type of unit? </th> <td><input class="form-control" ng-model="user.unitType"></td>
+        </tr>
+        <tr>
+          <th>Bedrooms? </th> <td><input class="form-control" ng-model="user.bedrooms"></td>
+        </tr>
+        <tr>
+          <th>Bathrooms? </th> <td><input class="form-control" ng-model="user.bathrooms"></td>
+        </tr>
+        <tr>
+          <th>How satisfied are you? </th> <td><input class="form-control" ng-model="user.satisfied"></td>
+        </tr>
+        <tr>
+          <th>Rate the food in the area? </th> <td><input class="form-control" ng-model="user.food"></td>
+        </tr>
+        <tr>
+          <th>Rate the schools? </th> <td><input class="form-control" ng-model="user.schools"></td>
+          </tr>
+        <tr>
+          <th>Rate the community? </th> <td><input class="form-control" ng-model="user.community"></td>
+        </tr>
+        <tr>
+          <th>Rate the nightlife? </th> <td><input class="form-control" ng-model="user.nightlife"></td>
+        </tr>
+        <tr>
+          <th>Rate access to transit? </th> <td><input class="form-control" ng-model="user.transit"></td>
+        </tr>
           <th>&nbsp;</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><input class="form-control" ng-model="contact.name"></td>
-          <td><input class="form-control" ng-model="contact.email"></td>
-          <td><input class="form-control" ng-model="contact.number"></td>
-          <td><button class="btn btn-primary" ng-click="addContact()">Add Contact</button></td>
+          
+          
+          
+          <td><button class="btn btn-primary" ng-click="addUser()">Add user</button></td>
           <td><button class="btn btn-info" ng-click="update()">Update</button>&nbsp;&nbsp;<button class="btn btn-info" ng-click="deselect()">Clear</button></td>
         </tr>
-        <tr ng-repeat="contact in contactlist">
-          <td>{{contact.name}}</td>
-          <td>{{contact.email}}</td>
-          <td>{{contact.number}}</td>
-          <td><button class="btn btn-danger" ng-click="remove(contact._id)">Remove</button></td>
-          <td><button class="btn btn-warning" ng-click="edit(contact._id)">Edit</button></td>
+        <tr ng-repeat="user in userlist">
+          <td>{{user.cost}}</td>
+          <td>{{user.unitType}}</td>
+          <td>{{user.bedrooms}}</td>
+          <td>{{user.bathrooms}}</td>
+          <td>{{user.satisfied}}</td>
+          <td>{{user.food}}</td>
+          <td>{{user.schools}}</td>
+          <td>{{user.community}}</td>
+          <td>{{user.nightlife}}</td>
+          <td>{{user.transit}}</td>
+
+          <td><button class="btn btn-danger" ng-click="remove(user._id)">Remove</button></td>
+          <td><button class="btn btn-warning" ng-click="edit(user._id)">Edit</button></td>
         </tr>
       </tbody>
     </table>
