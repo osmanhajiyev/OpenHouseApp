@@ -28,8 +28,6 @@ mongoose.connect(config.database);
 require('./public/config/passport')(passport);
 
 app.post('/register', function(req, res) {
-  console.log("We are trying to register");
-  console.log(req.body);
   if (!req.body.username || !req.body.password) {
     res.json({success: false, msg: 'Please pass name and password.'});
   } else {
@@ -54,7 +52,7 @@ app.post('/authenticate', function(req, res) {
     username: req.body.username
   }, function(err, user) {
     if (err) throw err;
- 
+    console.log(user)
     if (!user) {
       res.send({success: false, msg: 'Authentication failed. User not found.'});
     } else {

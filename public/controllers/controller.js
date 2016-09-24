@@ -10,9 +10,23 @@ myApp.config(function($routeProvider){
     templateUrl: '../register/register.html',
   })
   .when('/userinfo', {
+      resolve:{
+      "check": function($location, $rootScope){
+        if(!$rootScope.loggedIn){
+          $location.path('/');
+        }
+      }
+    },
       templateUrl: '../userinfo.html'
   })
   .when('/homepage', {
+    resolve:{
+      "check": function($location, $rootScope){
+        if(!$rootScope.loggedIn){
+          $location.path('/');
+        }
+      }
+    },
       templateUrl: '../homepage.html'
   })
   .otherwise({
@@ -32,23 +46,26 @@ var refresh = function() {
   });
 };
 
-refresh();
 
 $scope.register = function(){
-  console.log("We are trying to REGISTER");
-  $http.post('/register', { username: $scope.vm.username, password: $scope.vm.password })
+  $http.post('/register', $scope.vm)
                .success(function (response) {
-                console.log("REGISTERATION WAS GREAT SUCCESS");
-                   $location.path('/userinfo');
+                if(response.success){
+                    $rootScope.loggedIn =true;
+                    $location.path('/userinfo');
+                  }
                });
 }
 
 
 $scope.login = function(){
-  console.log("We are trying to login");
-  $http.post('/authenticate', { username: $scope.vm.username, password: $scope.vm.password })
+  $http.post('/authenticate', $scope.vm)
                .success(function (response) {
+                console.log(response);
+                if(response.success){
+                   $rootScope.loggedIn =true;
                    $location.path('/homepage');
+                }
                });
 }
 
