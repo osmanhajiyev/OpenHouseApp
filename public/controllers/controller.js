@@ -94,6 +94,10 @@ $scope.deselect = function() {
 }
 
 
+}]);﻿
+
+
+myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', function($scope, $http, $rootScope, $location) {
  var mapOptions = {
                   zoom: 8,
                   center: new google.maps.LatLng(49, -123),
@@ -131,4 +135,5 @@ $scope.deselect = function() {
                   google.maps.event.trigger(selectedMarker, 'click');
               }
 
-}]);﻿
+
+  }]);
