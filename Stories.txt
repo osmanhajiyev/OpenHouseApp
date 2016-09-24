@@ -1,7 +1,0 @@
-Sally just rented a new place in Point Grey and she wants to anonymously share her rental info with anybody who may be interested in renting in the area.
-
-Bob is a 25 year old guy looking for a place to rent in Vancouver. He got fed up with going to different open houses and talking to landlords because he thinks the offers he receives are too expensive. Bob wants to be able to find rental info about a certain dictrict in Vancouver online and to be able to compare his offers to the average price in that area for a place that he is interested in. He also wants to be notified of the new offers in Kerrisdale.
-
-Alice is a 40 year old woman who owns an apartment in Kitsilano and she wants to rent it out but she has no idea how much she wants to ask for her place based on some specific characteristics: type of unit, number of bedrooms and bathrooms, nightlife in area, food places, schools nearby, hospital access, local community. She wants to be able to compare her unit to other rented units in the area and make her final decision on how much to ask.
-
-John is a city planner who is deciding where to put the next allotment of affordable housing. He looks at two districts of the city: Kitsilano and West End. He needs to compare the average rental price and amenities in these two areas to make the best decision and to maximize the return on his investment.
