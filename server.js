@@ -80,12 +80,14 @@ app.get('/users', function (req, res) {
   });
 });
 
-app.get('/appartments', function (req, res) {
-  console.log('I received a GET request for appartments');
-  db.openhouse.find(function (err, docs) {
-    console.log(docs);
-    res.json(docs);
+app.get('/appartments/:name', function (req, res) {
+  var name = req.params.name;
+  console.log('I received a GET request for appartments with name: ' + name);
+
+  db.openhouse.find({username: name}, function (err, doc) {
+    res.json(doc);
   });
+
 });
 
 app.get('/openhouse', function (req, res) {
@@ -106,9 +108,11 @@ app.post('/openhouse', function (req, res) {
 app.delete('/openhouse/:id', function (req, res) {
   var id = req.params.id;
   console.log(id);
+
   db.openhouse.remove({_id: mongojs.ObjectId(id)}, function (err, doc) {
     res.json(doc);
   });
+
 });
 
 app.get('/openhouse/:id', function (req, res) {

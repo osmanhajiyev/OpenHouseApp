@@ -33,11 +33,12 @@ var refresh = function() {
   });
 };
 
-$scope.pullAppartments = function(id) {
-  console.log("I got the appartments I requested with id: " + id);
-  // $http.get('/appartments' + id).success(function(response) {
-  //
-  // });
+$scope.pullAppartments = function(name) {
+  console.log("pulling appartments with name: " + name);
+  $http.get('/appartments/' + name).success(function(response) {
+    console.log("I got the appartments I requested with name: " + name);
+    console.log(response);
+  });
 }
 
 $scope.register = function(){
