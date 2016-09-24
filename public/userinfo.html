@@ -18,6 +18,9 @@
         <tr>
           <th>What do you pay in rent?</th>  <td><input class="form-control" ng-model="user.cost"></td>
         </tr>
+        <tr>
+          <th>Zip/Postal Code?</th>  <td><input class="form-control" ng-model="user.zipcode"></td>
+        </tr>
         <tr>       
           <th>Type of unit? </th> <td><input class="form-control" ng-model="user.unitType"></td>
         </tr>
@@ -58,6 +61,7 @@
         </tr>
         <tr ng-repeat="user in userlist">
           <td>{{user.cost}}</td>
+          <td>{{user.zipcode}}</td>
           <td>{{user.unitType}}</td>
           <td>{{user.bedrooms}}</td>
           <td>{{user.bathrooms}}</td>

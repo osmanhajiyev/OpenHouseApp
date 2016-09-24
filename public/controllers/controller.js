@@ -1,11 +1,32 @@
-var myApp = angular.module('myApp', []);
-myApp.controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
+var myApp = angular.module('myApp', ['ngRoute']);
+
+myApp.config(function($routeProvider){
+  console.log("I am running app config");
+  $routeProvider
+  .when('/', {
+    templateUrl: '../login/login.html',
+  })
+  .when('/register', {
+    templateUrl: '../register/register.html',
+  })
+  .when('/userinfo', {
+      templateUrl: '../userinfo.html'
+  })
+  .when('/homepage', {
+      templateUrl: '../homepage.html'
+  })
+  .otherwise({
+    redirectTo:'/'
+  });
+});
+
+myApp.controller('AppCtrl', ['$scope', '$http', '$rootScope', '$location', function($scope, $http, $rootScope, $location) {
     console.log("Hello World from controller");
 
 
 var refresh = function() {
   $http.get('/openhouse').success(function(response) {
-    console.log("I got the data I requested");
+    console.log("I got the data I requested updated");
     $scope.userlist = response;
     $scope.user = "";
   });
@@ -13,12 +34,32 @@ var refresh = function() {
 
 refresh();
 
+$scope.register = function(){
+  console.log("We are trying to REGISTER");
+  $http.post('/register', { username: $scope.vm.username, password: $scope.vm.password })
+               .success(function (response) {
+                console.log("REGISTERATION WAS GREAT SUCCESS");
+                   $location.path('/userinfo');
+               });
+}
+
+
+$scope.login = function(){
+  console.log("We are trying to login");
+  $http.post('/authenticate', { username: $scope.vm.username, password: $scope.vm.password })
+               .success(function (response) {
+                   $location.path('/homepage');
+               });
+}
+
 $scope.addUser = function() {
   console.log($scope.user);
+  console.log("I added a user");
   $http.post('/openhouse', $scope.user).success(function(response) {
     console.log(response);
     refresh();
   });
+  $location.path('/homepage');
 };
 
 $scope.remove = function(id) {
@@ -45,5 +86,17 @@ $scope.update = function() {
 $scope.deselect = function() {
   $scope.user = "";
 }
+
+  $scope.submit = function(){
+    console.log('scope is ' + $scope.username);
+    console.log('scope is ' + $scope.password);
+    if($scope.password == 'admin' && $scope.username == 'admin'){
+      $rootScope.loggedIn = true;
+      $location.path('/userinfo');
+    } else {
+      alert('Incorrect username and password');
+    }
+  };
+
 
 }]);﻿
