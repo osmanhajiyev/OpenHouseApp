@@ -59,8 +59,13 @@ $scope.login = function(){
 
 $scope.addUser = function() {
   console.log("I added a user");
+    $http.get('http://maps.google.com/maps/api/geocode/json?address=' + $scope.user.zipcode).success(function(mapData) {
+      angular.extend($scope, mapData);
+    $scope.user.lat = mapData.results[0].geometry.location.lat;
+    $scope.user.lng = mapData.results[0].geometry.location.lng;
+    });
+
   $scope.user.username = $rootScope.userprofile.username;
-  console.log($scope.user);
   $http.post('/openhouse', $scope.user).success(function(response) {
     console.log(response);
     $location.path('/homepage');

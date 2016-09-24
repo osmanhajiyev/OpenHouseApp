@@ -13,75 +13,62 @@
   <div class="container" ng-controller="AppCtrl">
     <h1>OpenHouse</h1>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th>What do you pay in rent?</th>  <td><input class="form-control" ng-model="user.cost"></td>
-        </tr>
-        <tr>
-          <th>Zip/Postal Code?</th>  <td><input class="form-control" ng-model="user.zipcode"></td>
-        </tr>
-        <tr>       
-          <th>Type of unit? </th> <td><input class="form-control" ng-model="user.unitType"></td>
-        </tr>
-        <tr>
-          <th>Bedrooms? </th> <td><input class="form-control" ng-model="user.bedrooms"></td>
-        </tr>
-        <tr>
-          <th>Bathrooms? </th> <td><input class="form-control" ng-model="user.bathrooms"></td>
-        </tr>
-        <tr>
-          <th>Any comments on your landlord? </th> <td><input class="form-control" ng-model="user.landlord"></td>
-        </tr>
-        <tr>
-          <th>How satisfied are you? </th> <td><input id="time-slider" type="range" min="0" max="10" ng-model:"user.satisfied"></td>
-        </tr>
-        <tr>
-          <th>Rate the food in the area? </th> <td><input class="form-control" ng-model="user.food"></td>
-        </tr>
-        <tr>
-          <th>Rate the schools? </th> <td><input class="form-control" ng-model="user.schools"></td>
-          </tr>
-        <tr>
-          <th>Rate the community? </th> <td><input class="form-control" ng-model="user.community"></td>
-        </tr>
-        <tr>
-          <th>Rate the nightlife? </th> <td><input class="form-control" ng-model="user.nightlife"></td>
-        </tr>
-        <tr>
-          <th>Rate access to transit? </th> <td><input class="form-control" ng-model="user.transit"></td>
-        </tr>
-          <th>&nbsp;</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          
 
-          <td><button class="btn btn-primary" ng-click="addUser()">Submit Info</button></td>
-          <td><button class="btn btn-info" ng-click="update()">Update</button>&nbsp;&nbsp;<button class="btn btn-info" ng-click="deselect()">Clear</button></td>
-        </tr>
-        <tr ng-repeat="user in userlist">
-          <td>{{user.cost}}</td>
-          <td>{{user.zipcode}}</td>
-          <td>{{user.unitType}}</td>
-          <td>{{user.bedrooms}}</td>
-          <td>{{user.bathrooms}}</td>
-          <td>{{user.landlord}}</td>
-          <td>{{user.satisfied}}</td>
-          <td>{{user.food}}</td>
-          <td>{{user.schools}}</td>
-          <td>{{user.community}}</td>
-          <td>{{user.nightlife}}</td>
-          <td>{{user.transit}}</td>
+<div class="col-md-6 col-md-offset-3" ng-controller="AppCtrl">
+    <h2>Register</h2>
+    <form name="form" ng-submit="addUser()" role="form">
+        <div class="form-group">
+            <label for="cost">What do you pay in rent?</label>
+            <input type="text" name="cost" id="cost" class="form-control" ng-model="user.cost" />
+        </div>
+        <div class="form-group" ng-class="{ 'has-error': form.zipcode.$dirty && form.zipcode.$error.required }">
+            <label for="zipcode">ZipCode/Postal Code? (REQUIRED) </label>
+            <input type="text" name="zipcode" id="zipcode" class="form-control" ng-model="user.zipcode" required />
+            <span ng-show="form.zipcode.$dirty && form.zipcode.$error.required" class="help-block">zipcode is required</span>
+        </div>
+        <div class="form-group">
+            <label for="unitType">Type of unit? </label>
+            <input type="unitType" name="unitType" id="unitType" class="form-control" ng-model="user.unitType" />
+        </div>
+        <div class="form-group">
+            <label for="bedrooms">Bedrooms? </label>
+            <input type="bedrooms" name="bedrooms" id="bedrooms" class="form-control" ng-model="user.bedrooms" />
+        </div>
+        <div class="form-group">
+            <label for="bathrooms">Bathrooms? </label>
+            <input type="bathrooms" name="bathrooms" id="bathrooms" class="form-control" ng-model="user.bathrooms" />
+        </div>
+        <div class="form-group">
+            <label for="landlord">Any comments on your landlord?  </label>
+            <input type="landlord" name="landlord" id="landlord" class="form-control" ng-model="user.landlord" />
+        </div>
+        <div class="form-group">
+            <label for="satisfied">How satisfied are you? </label>
+            <input type="satisfied" name="satisfied" id="satisfied" class="form-control" ng-model="user.satisfied" />
+        </div>
+        <div class="form-group">
+            <label for="food">Rate the food in the area? </label>
+            <input type="food" name="food" id="food" class="form-control" ng-model="user.food" />
+        </div>
+        <div class="form-group">
+            <label for="schools">Rate the schools in the area? </label>
+            <input type="schools" name="schools" id="schools" class="form-control" ng-model="user.schools" />
+        </div>
+        <div class="form-group">
+            <label for="nightlife">Rate the nightlife in the area? </label>
+            <input type="nightlife" name="nightlife" id="nightlife" class="form-control" ng-model="user.nightlife" />
+        </div>
+        <div class="form-group">
+            <label for="transit">Rate the access to transit in the area? </label>
+            <input type="transit" name="transit" id="transit" class="form-control" ng-model="user.transit" />
+        </div>
+        <div class="form-actions">
+            <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Register</button>
+            <img ng-if="user.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            <a href="#/login" class="btn btn-link">Cancel</a>
+        </div>
+    </form>
 
-          <td><button class="btn btn-danger" ng-click="remove(user._id)">Remove</button></td>
-          <td><button class="btn btn-warning" ng-click="edit(user._id)">Edit</button></td>
-        </tr>
-      </tbody>
-    </table>
-
-  </div>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular.min.js"></script>
 <script src="angular-route.js"></script>
 <script src="controllers/controller.js"></script>
