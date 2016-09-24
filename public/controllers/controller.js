@@ -117,42 +117,84 @@ $scope.deselect = function() {
 }]);﻿
 
 myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', function($scope, $http, $rootScope, $location) {
- var mapOptions = {
-                  zoom: 8,
-                  center: new google.maps.LatLng(49, -123),
-                  mapTypeId: google.maps.MapTypeId.ROADMAP
-              }
+var mapOptions = {
+  zoom: 5,
+  center: new google.maps.LatLng(24.886, -70.268),
+  mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
 
-              $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+  $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-              $scope.markers = [];
+  var triangleCoords = [
+  {lat: 25.774, lng: -80.190},
+  {lat: 18.466, lng: -66.118},
+  {lat: 32.321, lng: -64.757}
+  ];
 
-              var infoWindow = new google.maps.InfoWindow();
-
-              var createMarker = function (info){
-
-                  var marker = new google.maps.Marker({
-                      map: $scope.map,
-                      position: new google.maps.LatLng(info.lat, info.long),
-                      title: info.place
-                  });
-                  marker.content = '<div class="infoWindowContent">' + info.desc + '<br />' + info.lat + ' E,' + info.long +  ' N, </div>';
-
-                  google.maps.event.addListener(marker, 'click', function(){
-                      infoWindow.setContent('<h2>' + marker.title + '</h2>' +
-                        marker.content);
-                      infoWindow.open($scope.map, marker);
-                  });
-
-                  $scope.markers.push(marker);
-
-              }
+  // Construct the polygon.
+    var bermudaTriangle = new google.maps.Polygon({
+    paths: triangleCoords,
+    strokeColor: '#FF0000',
+    strokeOpacity: 0.8,
+    strokeWeight: 3,
+    fillColor: '#FF0000',
+    fillOpacity: 0.35
+    });
+    
+    bermudaTriangle.setMap($scope.map);
 
 
-              $scope.openInfoWindow = function(e, selectedMarker){
-                  e.preventDefault();
-                  google.maps.event.trigger(selectedMarker, 'click');
-              }
+
+    var drawingManager = new google.maps.drawing.DrawingManager({
+        drawingMode: google.maps.drawing.OverlayType.MARKER,
+        drawingControl: true,
+        drawingControlOptions: {
+            position: google.maps.ControlPosition.TOP_CENTER,
+            drawingModes: ['marker', 'circle', 'polygon', 'polyline', 'rectangle']
+        },
+
+    markerOptions: {icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'},
+        circleOptions: {
+        fillColor: '#ffff00',
+        fillOpacity: 1,
+        strokeWeight: 5,
+        clickable: true,
+        editable: true,
+        zIndex: 1
+        }
+    });
+
+    // Add a listener for the click event.
+    bermudaTriangle.addListener('click', showArrays);
+    //userCreatedShape.addListener('click', showArrays);
+
+    drawingManager.setMap($scope.map);
+
+    var infoWindow = new google.maps.InfoWindow();
 
 
-  }]);
+
+
+    function showArrays(event) {
+        // Since this polygon has only one path, we can call getPath() to return the
+        // MVCArray of LatLngs.
+        var vertices = this.getPath();
+
+        var contentString = 'Clicked location: <br>' + event.latLng.lat() + ',' + event.latLng.lng() +
+            '<br>';
+
+        // Iterate over the vertices.
+        for (var i =0; i < vertices.getLength(); i++) {
+          var xy = vertices.getAt(i);
+          contentString += '<br>' + 'Coordinate ' + i + ':<br>' + xy.lat() + ',' +
+              xy.lng();
+        }
+
+        // Replace the info window's content and position.
+        infoWindow.setContent(contentString);
+        infoWindow.setPosition(event.latLng);
+
+        infoWindow.open($scope.map);
+    }
+
+}]);
