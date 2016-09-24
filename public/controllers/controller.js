@@ -10,6 +10,7 @@ myApp.config(function($routeProvider){
     templateUrl: '../register/register.html',
   })
   .when('/userinfo', {
+
       templateUrl: '../userinfo.html'
   })
   .when('/homepage', {
@@ -32,34 +33,39 @@ var refresh = function() {
   });
 };
 
-refresh();
 
 $scope.register = function(){
-  console.log("We are trying to REGISTER");
-  $http.post('/register', { username: $scope.vm.username, password: $scope.vm.password })
+  $http.post('/register', $scope.vm)
                .success(function (response) {
-                console.log("REGISTERATION WAS GREAT SUCCESS");
-                   $location.path('/userinfo');
+                if(response.success){
+                    $rootScope.loggedIn =true;
+                    $rootScope.userprofile = response.user;
+                    $location.path('/userinfo');
+                  }
                });
 }
 
 
 $scope.login = function(){
-  console.log("We are trying to login");
-  $http.post('/authenticate', { username: $scope.vm.username, password: $scope.vm.password })
+  $http.post('/authenticate', $scope.vm)
                .success(function (response) {
+                if(response.success){
+                   $rootScope.loggedIn =true;
+                   $rootScope.userprofile = response.user;
                    $location.path('/homepage');
+                }
                });
 }
 
 $scope.addUser = function() {
-  console.log($scope.user);
   console.log("I added a user");
+  $scope.user.username = $rootScope.userprofile.username;
+  console.log($scope.user);
   $http.post('/openhouse', $scope.user).success(function(response) {
     console.log(response);
-    refresh();
+    $location.path('/homepage');
   });
-  $location.path('/homepage');
+
 };
 
 $scope.remove = function(id) {
@@ -87,16 +93,6 @@ $scope.deselect = function() {
   $scope.user = "";
 }
 
-  $scope.submit = function(){
-    console.log('scope is ' + $scope.username);
-    console.log('scope is ' + $scope.password);
-    if($scope.password == 'admin' && $scope.username == 'admin'){
-      $rootScope.loggedIn = true;
-      $location.path('/userinfo');
-    } else {
-      alert('Incorrect username and password');
-    }
-  };
 
 
 }]);﻿

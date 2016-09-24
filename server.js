@@ -28,12 +28,11 @@ mongoose.connect(config.database);
 require('./public/config/passport')(passport);
 
 app.post('/register', function(req, res) {
-  console.log("We are trying to register");
-  console.log(req.body);
   if (!req.body.username || !req.body.password) {
     res.json({success: false, msg: 'Please pass name and password.'});
   } else {
     var newUser = new User({
+      email: req.body.email,
       username: req.body.username,
       password: req.body.password
     });
@@ -42,7 +41,7 @@ app.post('/register', function(req, res) {
       if (err) {
         return res.json({success: false, msg: 'Username already exists.'});
       }
-      res.json({success: true, msg: 'Successful created new user.'});
+      res.json({success: true, msg: 'Successful created new user.', user: newUser});
     });
   }
 });
@@ -52,19 +51,19 @@ app.post('/register', function(req, res) {
 app.post('/authenticate', function(req, res) {
   User.findOne({
     username: req.body.username
-  }, function(err, user) {
+  }, function(err, userprofile) {
     if (err) throw err;
- 
-    if (!user) {
+    console.log(userprofile)
+    if (!userprofile) {
       res.send({success: false, msg: 'Authentication failed. User not found.'});
     } else {
       // check if password matches
-      user.comparePassword(req.body.password, function (err, isMatch) {
+      userprofile.comparePassword(req.body.password, function (err, isMatch) {
         if (isMatch && !err) {
           // if user is found and password is right create a token
-          var token = jwt.encode(user, config.secret);
+          var token = jwt.encode(userprofile, config.secret);
           // return the information including token as JSON
-          res.json({success: true, token: 'JWT ' + token});
+          res.json({success: true, token: 'JWT ' + token, user: userprofile});
         } else {
           res.send({success: false, msg: 'Authentication failed. Wrong password.'});
         }
@@ -75,7 +74,6 @@ app.post('/authenticate', function(req, res) {
 
 app.get('/users', function (req, res) {
   console.log('I received a GET request updated');
-
   db.users.find(function (err, docs) {
     console.log(docs);
     res.json(docs);
@@ -84,7 +82,6 @@ app.get('/users', function (req, res) {
 
 app.get('/openhouse', function (req, res) {
   console.log('I received a GET request updated');
-
   db.openhouse.find(function (err, docs) {
     console.log(docs);
     res.json(docs);
@@ -120,7 +117,7 @@ app.put('/openhouse/:id', function (req, res) {
   db.openhouse.findAndModify({
     query: {_id: mongojs.ObjectId(id)},
     update: {$set: {cost: req.body.cost, unitType: req.body.unitType, bedrooms: req.body.bedrooms, 
-      bathrooms: req.body.bathrooms, satisfied: req.body.satisfied, food: req.body.food,
+      bathrooms: req.body.bathrooms, landlord: req.body.landlord, satisfied: req.body.satisfied,  food: req.body.food,
       schools: req.body.schools, community: req.body.community, nightlife: req.body.nightlife,
       transit: req.body.transit
     }},
