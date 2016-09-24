@@ -53,7 +53,9 @@ $scope.pullAppartmentsAggreatesByName = function(name) {
 $scope.register = function(){
   $http.post('/register', $scope.vm)
                .success(function (response) {
+                console.log("We registered");
                 if(response.success){
+                  console.log("We succesfully registered");
                     $rootScope.loggedIn =true;
                     $rootScope.userprofile = response.user;
                     $location.path('/userinfo');
@@ -77,15 +79,14 @@ $scope.addUser = function() {
   console.log("I added a user");
     $http.get('http://maps.google.com/maps/api/geocode/json?address=' + $scope.user.zipcode).success(function(mapData) {
       angular.extend($scope, mapData);
-    $scope.user.lat = mapData.results[0].geometry.location.lat;
-    $scope.user.lng = mapData.results[0].geometry.location.lng;
+      $scope.user.lat = mapData.results[0].geometry.location.lat;
+      $scope.user.lng = mapData.results[0].geometry.location.lng;
+      $scope.user.username = $rootScope.userprofile.username;
+      $http.post('/openhouse', $scope.user).success(function(response) {
+        console.log(response);
+        $location.path('/homepage');
+      });
     });
-
-  $scope.user.username = $rootScope.userprofile.username;
-  $http.post('/openhouse', $scope.user).success(function(response) {
-    console.log(response);
-    $location.path('/homepage');
-  });
 
 };
 
