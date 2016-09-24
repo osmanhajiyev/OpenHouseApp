@@ -15,7 +15,8 @@
 
 
 <div class="col-md-6 col-md-offset-3" ng-controller="AppCtrl">
-    <h2>Register</h2>
+    <h2>Provide some information :)</h2>
+    <p>OpenHouse users need to provide information about themselves in order to see information about others</p>
     <form name="form" ng-submit="addUser()" role="form">
         <div class="form-group">
             <label for="cost">What do you pay in rent?</label>
@@ -27,40 +28,64 @@
             <span ng-show="form.zipcode.$dirty && form.zipcode.$error.required" class="help-block">zipcode is required</span>
         </div>
         <div class="form-group">
-            <label for="unitType">Type of unit? </label>
-            <input type="unitType" name="unitType" id="unitType" class="form-control" ng-model="user.unitType" />
-        </div>
-        <div class="form-group">
-            <label for="bedrooms">Bedrooms? </label>
-            <input type="bedrooms" name="bedrooms" id="bedrooms" class="form-control" ng-model="user.bedrooms" />
-        </div>
-        <div class="form-group">
-            <label for="bathrooms">Bathrooms? </label>
-            <input type="bathrooms" name="bathrooms" id="bathrooms" class="form-control" ng-model="user.bathrooms" />
-        </div>
-        <div class="form-group">
             <label for="landlord">Any comments on your landlord?  </label>
             <input type="landlord" name="landlord" id="landlord" class="form-control" ng-model="user.landlord" />
         </div>
         <div class="form-group">
+            <label style="padding-right: 20px;" for="unitType">Type of unit? </label>
+        <select>
+             <option value="basement">Basement</option>
+             <option value="condo">Condominium</option>
+             <option value="house">House</option>
+       </select>
+        </div>
+        <div class="form-group">
+            <label style="padding-right: 20px;" for="bedrooms">Bedrooms? </label>
+            <select type="bedrooms" name="bedrooms" id="bedrooms"  ng-model="user.bedrooms">
+             <option value=1>1</option>
+             <option value=2>2</option>
+             <option value=3>3</option>
+             <option value=4>4</option>
+             <option value=5>5</option>
+             <option value=6>6</option>
+             <option value=7>7</option>
+             <option value=8>8</option>
+             <option value=9>9</option>
+          </select>
+        </div>
+        <div class="form-group">
+            <label style="padding-right: 20px;"  for="bathrooms">Bathrooms? </label>
+            <select type="bathrooms" name="bathrooms" id="bathrooms" ng-model="user.bathrooms">
+              <option value=1>1</option>
+             <option value=2>2</option>
+             <option value=3>3</option>
+             <option value=4>4</option>
+             <option value=5>5</option>
+             <option value=6>6</option>
+             <option value=7>7</option>
+             <option value=8>8</option>
+             <option value=9>9</option>
+            <select>
+        </div>
+        <div class="form-group">
             <label for="satisfied">How satisfied are you? </label>
-            <input type="satisfied" name="satisfied" id="satisfied" class="form-control" ng-model="user.satisfied" />
+            <input id="satisfied" type="range" value="5" min="0" max="10" ng-model:"user.satisfied"></td>
         </div>
         <div class="form-group">
             <label for="food">Rate the food in the area? </label>
-            <input type="food" name="food" id="food" class="form-control" ng-model="user.food" />
+            <input id="food" type="range" value="5" min="0" max="10" ng-model:"user.food"></td>
         </div>
         <div class="form-group">
             <label for="schools">Rate the schools in the area? </label>
-            <input type="schools" name="schools" id="schools" class="form-control" ng-model="user.schools" />
+            <input id="schools" type="range" value="5" min="0" max="10" ng-model:"user.schools"></td>
         </div>
         <div class="form-group">
             <label for="nightlife">Rate the nightlife in the area? </label>
-            <input type="nightlife" name="nightlife" id="nightlife" class="form-control" ng-model="user.nightlife" />
+            <input id="nightlife" type="range" value="5" min="0" max="10" ng-model:"user.nightlife"></td>
         </div>
         <div class="form-group">
             <label for="transit">Rate the access to transit in the area? </label>
-            <input type="transit" name="transit" id="transit" class="form-control" ng-model="user.transit" />
+            <input id="transit" type="range" value="5" min="0" max="10" ng-model:"user.transit"></td>
         </div>
         <div class="form-actions">
             <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Register</button>

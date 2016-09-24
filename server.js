@@ -14,6 +14,7 @@ var config      = require('./public/config/database'); // get db config file
 var User        = require('./public/models/user'); // get the mongoose model
 var jwt         = require('jwt-simple');
 
+
 // get our request parameters
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
@@ -45,7 +46,6 @@ app.post('/register', function(req, res) {
     });
   }
 });
-
 
 // route to authenticate a user (POST http://localhost:8080/api/authenticate)
 app.post('/authenticate', function(req, res) {

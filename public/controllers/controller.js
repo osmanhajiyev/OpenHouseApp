@@ -77,6 +77,7 @@ $scope.login = function(){
 
 $scope.addUser = function() {
   console.log("I added a user");
+  console.log($scope.user);
     $http.get('http://maps.google.com/maps/api/geocode/json?address=' + $scope.user.zipcode).success(function(mapData) {
       angular.extend($scope, mapData);
       $scope.user.lat = mapData.results[0].geometry.location.lat;
@@ -115,7 +116,14 @@ $scope.deselect = function() {
   $scope.user = "";
 }
 
+$scope.updateTextInput = function(val) {
+          console.log(val);
+          document.getElementById('textInput').value=val; 
+        }
+
 }]);﻿
+
+
 
 myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', function($scope, $http, $rootScope, $location) {
  var mapOptions = {
