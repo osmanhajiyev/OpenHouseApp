@@ -31,14 +31,6 @@ myApp.controller('AppCtrl', ['$scope', '$http', '$rootScope', '$location', funct
     });
   };
 
-  $scope.pullAppartmentsByName = function(name) {
-    console.log("pulling appartments with name: " + name);
-    $http.get('/appartmentsByName/' + name).success(function(response) {
-      $scope.appartmentList = response;
-      $scope.pullAppartmentsAggreatesByName(name);
-    });
-  };
-
   $scope.register = function() {
     $http.post('/register', $scope.vm)
                  .success(function (response) {
@@ -70,27 +62,6 @@ myApp.controller('AppCtrl', ['$scope', '$http', '$rootScope', '$location', funct
     }
   };
 
-  $scope.pullAppartmentsAggreatesByName = function(name) {
-    console.log("pulling appartments aggregates with name: " + name);
-    $http.get('/pullAppartmentsAggreatesByName/' + name).success(function(response) {
-      $scope.averages = response;
-    });
-  };
-
-  $scope.pullAllAppartments = function(polygon) {
-    console.log("pulling all appartments");
-    $http.get('/pullAllAppartments').success(function(response) {
-      var allAppartments = response;
-      var confirmedAppartments = [];
-      for (i = 0; i < allAppartments.length; i++) {
-        var myLatlng = new google.maps.LatLng(allAppartments[i].lat, allAppartments[i].lng);
-        if(google.maps.geometry.poly.containsLocation(myLatlng, polygon)) {
-          confirmedAppartments.push(allAppartments[i]);
-        }
-      }
-      $scope.confirmedAppartments = confirmedAppartments;
-    });
-  };
 
   $scope.getSliderValue = function(id){
     document.getElementById(id).value=val;
@@ -185,8 +156,71 @@ myApp.controller('AppCtrl', ['$scope', '$http', '$rootScope', '$location', funct
 
 myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', function($scope, $http, $rootScope, $location) {
 
-        $scope.config22 = {
-    title: 'Products',
+  $scope.createDataAndConfig = function(confirmedAppartments){
+        $scope.createRentPerBedroom(confirmedAppartments);
+  }
+
+  $scope.createRentPerBedroom = function(confirmedAppartments){
+    console.log($scope.confirmedAppartments);
+      for (i = 0; i < $scope.confirmedAppartments.length; i++) {
+          var bedrooms = confirmedAppartments[i].bedrooms;
+          if(bedrooms != undefined){
+            var currValue = $rootScope.data22.data[bedrooms - 1].y[0];
+            if(confirmedAppartments[i].cost != undefined){
+              currValue += parseInt(confirmedAppartments[i].cost);
+              $rootScope.data22.data[bedrooms - 1].y[0] = currValue;
+              $scope.bedroomCount[bedrooms - 1]++;
+            }
+          }
+      }
+      for(j = 0; j < 4; j++){
+          var totalValue = $rootScope.data22.data[j].y[0];
+          if($scope.bedroomCount[j] != 0){
+            $rootScope.data22.data[j].y[0] = totalValue / $scope.bedroomCount[j];
+        }
+      }
+      $rootScope.showChart = true;
+      var chartwrapper = document.getElementById("chartwrapper");
+      chartwrapper.style.visibility = 'visible';
+  }
+
+  $scope.bedroomCount = [0,0,0,0,0,0,0,0,0]
+
+  $rootScope.showChart = false; 
+
+  $scope.pullAppartmentsAggreatesByName = function(name) {
+    console.log("pulling appartments aggregates with name: " + name);
+    $http.get('/pullAppartmentsAggreatesByName/' + name).success(function(response) {
+      $scope.averages = response;
+    });
+  };
+
+  $scope.pullAllAppartments = function(polygon) {
+    console.log("pulling all appartments");
+    $http.get('/pullAllAppartments').success(function(response) {
+      var allAppartments = response;
+      var confirmedAppartments = [];
+      for (i = 0; i < allAppartments.length; i++) {
+        var myLatlng = new google.maps.LatLng(allAppartments[i].lat, allAppartments[i].lng);
+        if(google.maps.geometry.poly.containsLocation(myLatlng, polygon)) {
+          confirmedAppartments.push(allAppartments[i]);
+        }
+      }
+      $scope.confirmedAppartments = confirmedAppartments;
+      $scope.createDataAndConfig(confirmedAppartments);
+    });
+  };
+
+    $scope.pullAppartmentsByName = function(name) {
+    console.log("pulling appartments with name: " + name);
+    $http.get('/appartmentsByName/' + name).success(function(response) {
+      $scope.appartmentList = response;
+      $scope.pullAppartmentsAggreatesByName(name);
+    });
+  };
+
+        $rootScope.config22 = {
+    title: 'Cost per bedroom',
     tooltips: false,
     labels: false,
     mouseover: function() {},
@@ -199,20 +233,20 @@ myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', funct
     }
   };
 
-  $scope.data22 = {
-    series: ['Cost per bdrm'],
+  $rootScope.data22 = {
+    series: ['Cost'],
     data: [{
-      x: "1 bdrm",
-      y: [100],
+      x: "1 brm",
+      y: [0],
     }, {
-      x: "2 bdrm",
-      y: [300]
+      x: "2 brm",
+      y: [0]
     }, {
-      x: "3 bdrm",
-      y: [351]
+      x: "3 brm",
+      y: [0]
     }, {
-      x: "4 brdm",
-      y: [54]
+      x: "4 bdm",
+      y: [0]
     }]
   };
 
@@ -253,6 +287,7 @@ myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', funct
     polygons.push(polygon);
 
     $scope.pullAllAppartments(polygon);
+
   })
 
 }]);

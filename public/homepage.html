@@ -4,11 +4,12 @@
 
 <title>OpenHouse Dashboard</title>
 
+<link rel="stylesheet" type="text/css" href="./css/sidebar.css">
 </head>
 
 <body>
 
-<div class="container" ng-controller="AppCtrl" ng-init="pullAppartmentsByName(userprofile.username)">
+<div class="container" ng-controller="AppCtrl">
 
 
 
@@ -40,7 +41,8 @@
 
 <div ng-controller="mapCtrl">
 
-<div class="chartwrapper" ng-draggable="dragOptions">
+
+<div id="chartwrapper" class="chartwrapper" ng-draggable="dragOptions">
 <div 
     ac-chart="'bar'" 
     ac-data="data22" 
@@ -48,6 +50,8 @@
     class="chart">
   </div>
  </div>
+ 
+
 
 <div class="side">
 		<div class="panel chrono">

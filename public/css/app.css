@@ -38,7 +38,6 @@ input[type="range"]::-webkit-slider-thumb {
     width: 100%;
 	height: 87%;
 	min-height: 450px;
-	position: relative;
 }
 .infoWindowContent {
     font-size:  14px !important;
@@ -75,245 +74,6 @@ input[type="range"]::-webkit-slider-thumb {
 	margin-bottom: 0;
 }
 
-
-a {
-	color: #24c;
-}
-a:hover {
-	color: #48f;
-}
-a:active {
-	color: #008;
-}
-a:visited {
-	color: #248;
-}
-a.light {
-	color: #def;
-}
-a.light:hover {
-	color: #fff;
-}
-a.light:active {
-	color: #8ac;
-}
-.links a:not(:first-child) {
-	margin-left: 1em;
-}
-
-select {
-	width: 100%;
-	margin: -.4ex 0 0 -4px;
-	border: none;
-	outline: none;
-	background: none;
-	font: inherit;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-}
-
-input[type='text'] {
-	padding: .5em 0;
-	border: none;
-	outline: none;
-	font: inherit;
-	width: 100%;
-	display: block;
-	border-bottom: 1px dotted;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-}
-
-input[type='submit'], button {
-	padding: 1ex;
-	color: #444;
-	border: none;
-	font: inherit;
-	outline: none;
-	cursor: pointer;
-	background: none;
-	border-radius: 2px;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-}
-input[type='submit']:hover, button:hover {
-	color: #888;
-}
-input[type='submit']:active, button:active {
-	color: #000;
-}
-
-button {
-	box-shadow: 0 1px 1px 1px rgba(0,0,0,.1);
-}
-button:hover, button:focus {
-	box-shadow: 0 2px 2px 1px rgba(0,0,0,.1);
-}
-button:active {
-	box-shadow: 0 1px 1px rgba(0,0,0,.1);
-}
-
-form.panel input[type='submit'] {
-	position: absolute;
-	width: 100%;
-	left: 0;
-	bottom: 0;
-	height: 40px;
-	border-top: 1px solid rgba(0,0,0,.1);
-}
-form.panel input[type='submit']:hover, form.panel input[type='submit']:focus {
-	box-shadow: 0 1px 2px -1px rgba(0,0,0,.1);
-	border-top: 1px solid rgba(0,0,0,.06);
-}
-form.panel input[type='submit']:active {
-	box-shadow: none;
-	border-top: 1px solid rgba(0,0,0,.14);
-}
-
-fieldset {
-	border: none;
-	padding: 5px 0;
-	margin: 0 0 10px;
-}
-legend {
-	padding: 0;
-	font-weight: bold;
-}
-
-.field {
-	border-bottom: 1px dotted;
-	position: relative;
-}
-.select {
-	padding-right: 20px;
-}
-.select:after {
-	content: '\2572\2571';
-	font-size: 6pt;
-	display: block;
-	position: absolute;
-	top: 1ex;
-	right: 0;
-	z-index: 2;
-	overflow: visible;
-}
-
-body {
-	font-family: Roboto, Helvetica, Arial, sans-serif;
-	font-size: 11pt;
-	margin: 0;
-}
-
-.panel {
-	width: 100%;
-	background: #fff;
-	border-radius: 2px;
-	box-shadow: 0 1px 1px 1px rgba(0,0,0,.1);
-	margin: 20px 0;
-	padding: 20px;
-	box-sizing: border-box;
-}
-.side .panel, .table-wrapper.panel {
-	margin: 20px;
-}
-
-form.panel {
-	position: relative;
-	padding-bottom: 60px;
-}
-
-.panel.button {
-	cursor: pointer;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
-.panel.button:hover {
-	box-shadow: 0 2px 2px 2px rgba(0,0,0,.2);
-}
-.panel.button:active {
-	opacity: .9;
-}
-.panel.button.disabled {
-	opacity: .8;
-	color: #888;
-	pointer-events: none;
-}
-
-.links {
-	width: 100%;
-	margin: 20px 0;
-	font-size: 10pt;
-}
-.side .links {
-	margin: 20px;
-}
-.links .login {
-	float: left;
-}
-.links .share {
-	float: right;
-}
-
-.back {
-	display: block;
-	text-decoration: none;
-	color: black;
-	font-size: 24pt;
-	position: fixed;
-	top: 20px;
-	left: 20px;
-}
-
-.content {
-	margin: 0 auto;
-	width: 630px;
-}
-
-.table-wrapper {
-	position: fixed;
-	width: calc(100% - 360px);
-	height: calc(100% - 40px);
-	top: 0;
-	left: 320px;
-	overflow: auto;
-}
-.table-wrapper.hidden {
-	display: none;
-}
-.table-wrapper table {
-	width: 100%;
-	border-spacing: 0;
-}
-.table-wrapper th {
-	text-align: left;
-	text-transform: uppercase;
-	padding-bottom: .5em;
-	border-bottom: 1px solid;
-}
-.table-wrapper td {
-	vertical-align: top;
-}
-
-.building td {
-	padding-top: .5em;
-	border-top: 1px dotted;
-}
-.building:first-child td {
-	border-top: none;
-}
-.last td {
-	padding-bottom: .5em;
-}
-
-.navbar {
-	margin-top: 20px;
-}
-
 .openhouse-footer {
     padding-top: 50px;
     padding-bottom: 50px;
@@ -323,9 +83,13 @@ form.panel {
     background-color: #2a2730;
 }
 
+.ng-scope{
+		position: relative;
+}
+
 .chart {
- width: 400px;
- height: 400px;
+ width: 300px;
+ height: 300px;
 }
 
 .chartwrapper {
@@ -334,9 +98,11 @@ z-index: 99;
  float: right;
  background-color: #C0C0C0;
  opacity: 0.85;
+ visibility: hidden;
 }
 
 .chartwrapper:hover {
 	cursor: pointer;
 }
+
 
