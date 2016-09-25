@@ -31,14 +31,6 @@ myApp.controller('AppCtrl', ['$scope', '$http', '$rootScope', '$location', funct
     });
   };
 
-  $scope.pullAppartmentsByName = function(name) {
-    console.log("pulling appartments with name: " + name);
-    $http.get('/appartmentsByName/' + name).success(function(response) {
-      $scope.appartmentList = response;
-      $scope.pullAppartmentsAggreatesByName(name);
-    });
-  };
-
   $scope.register = function() {
     $http.post('/register', $scope.vm)
                  .success(function (response) {
@@ -70,27 +62,6 @@ myApp.controller('AppCtrl', ['$scope', '$http', '$rootScope', '$location', funct
     }
   };
 
-  $scope.pullAppartmentsAggreatesByName = function(name) {
-    console.log("pulling appartments aggregates with name: " + name);
-    $http.get('/pullAppartmentsAggreatesByName/' + name).success(function(response) {
-      $scope.averages = response;
-    });
-  };
-
-  $scope.pullAllAppartments = function(polygon) {
-    console.log("pulling all appartments");
-    $http.get('/pullAllAppartments').success(function(response) {
-      var allAppartments = response;
-      var confirmedAppartments = [];
-      for (i = 0; i < allAppartments.length; i++) {
-        var myLatlng = new google.maps.LatLng(allAppartments[i].lat, allAppartments[i].lng);
-        if(google.maps.geometry.poly.containsLocation(myLatlng, polygon)) {
-          confirmedAppartments.push(allAppartments[i]);
-        }
-      }
-      $scope.confirmedAppartments = confirmedAppartments;
-    });
-  };
 
   $scope.getSliderValue = function(id){
     document.getElementById(id).value=val;
@@ -184,6 +155,102 @@ myApp.controller('AppCtrl', ['$scope', '$http', '$rootScope', '$location', funct
 }]);﻿
 
 myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', function($scope, $http, $rootScope, $location) {
+
+  $scope.createDataAndConfig = function(confirmedAppartments){
+        $scope.createRentPerBedroom(confirmedAppartments);
+  }
+
+  $scope.createRentPerBedroom = function(confirmedAppartments){
+    console.log($scope.confirmedAppartments);
+      for (i = 0; i < $scope.confirmedAppartments.length; i++) {
+          var bedrooms = confirmedAppartments[i].bedrooms;
+          if(bedrooms != undefined){
+            var currValue = $rootScope.data22.data[bedrooms - 1].y[0];
+            if(confirmedAppartments[i].cost != undefined){
+              currValue += parseInt(confirmedAppartments[i].cost);
+              $rootScope.data22.data[bedrooms - 1].y[0] = currValue;
+              $scope.bedroomCount[bedrooms - 1]++;
+            }
+          }
+      }
+      for(j = 0; j < 4; j++){
+          var totalValue = $rootScope.data22.data[j].y[0];
+          if($scope.bedroomCount[j] != 0){
+            $rootScope.data22.data[j].y[0] = totalValue / $scope.bedroomCount[j];
+        }
+      }
+      $rootScope.showChart = true;
+      var chartwrapper = document.getElementById("chartwrapper");
+      chartwrapper.style.visibility = 'visible';
+  }
+
+  $scope.bedroomCount = [0,0,0,0,0,0,0,0,0]
+
+  $rootScope.showChart = false; 
+
+  $scope.pullAppartmentsAggreatesByName = function(name) {
+    console.log("pulling appartments aggregates with name: " + name);
+    $http.get('/pullAppartmentsAggreatesByName/' + name).success(function(response) {
+      $scope.averages = response;
+    });
+  };
+
+  $scope.pullAllAppartments = function(polygon) {
+    console.log("pulling all appartments");
+    $http.get('/pullAllAppartments').success(function(response) {
+      var allAppartments = response;
+      var confirmedAppartments = [];
+      for (i = 0; i < allAppartments.length; i++) {
+        var myLatlng = new google.maps.LatLng(allAppartments[i].lat, allAppartments[i].lng);
+        if(google.maps.geometry.poly.containsLocation(myLatlng, polygon)) {
+          confirmedAppartments.push(allAppartments[i]);
+        }
+      }
+      $scope.confirmedAppartments = confirmedAppartments;
+      $scope.createDataAndConfig(confirmedAppartments);
+    });
+  };
+
+    $scope.pullAppartmentsByName = function(name) {
+    console.log("pulling appartments with name: " + name);
+    $http.get('/appartmentsByName/' + name).success(function(response) {
+      $scope.appartmentList = response;
+      $scope.pullAppartmentsAggreatesByName(name);
+    });
+  };
+
+        $rootScope.config22 = {
+    title: 'Cost per bedroom',
+    tooltips: false,
+    labels: false,
+    mouseover: function() {},
+    mouseout: function() {},
+    click: function() {},
+    legend: {
+      display: true,
+      //could be 'left, right'
+      position: 'right'
+    }
+  };
+
+  $rootScope.data22 = {
+    series: ['Cost'],
+    data: [{
+      x: "1 brm",
+      y: [0],
+    }, {
+      x: "2 brm",
+      y: [0]
+    }, {
+      x: "3 brm",
+      y: [0]
+    }, {
+      x: "4 bdm",
+      y: [0]
+    }]
+  };
+
+
    var mapOptions = {
        zoom: 12,
        center: new google.maps.LatLng(49.2827, -123.116226),
@@ -221,6 +288,80 @@ myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', funct
 
     $scope.pullAllAppartments(polygon);
 
-   });
+  })
 
 }]);
+
+myApp.directive('ngDraggable', function($document) {
+  return {
+    restrict: 'A',
+    scope: {
+      dragOptions: '=ngDraggable'
+    },
+    link: function(scope, elem, attr) {
+      var startX, startY, x = 0, y = 0,
+          start, stop, drag, container;
+
+      var width  = elem[0].offsetWidth,
+          height = elem[0].offsetHeight;
+
+      // Obtain drag options
+      if (scope.dragOptions) {
+        start  = scope.dragOptions.start;
+        drag   = scope.dragOptions.drag;
+        stop   = scope.dragOptions.stop;
+        var id = scope.dragOptions.container;
+        if (id) {
+            container = document.getElementById(id).getBoundingClientRect();
+        }
+      }
+
+      // Bind mousedown event
+      elem.on('mousedown', function(e) {
+        e.preventDefault();
+        startX = e.clientX - elem[0].offsetLeft;
+        startY = e.clientY - elem[0].offsetTop;
+        $document.on('mousemove', mousemove);
+        $document.on('mouseup', mouseup);
+        if (start) start(e);
+      });
+
+      // Handle drag event
+      function mousemove(e) {
+        y = e.clientY - startY;
+        x = e.clientX - startX;
+        setPosition();
+        if (drag) drag(e);
+      }
+
+      // Unbind drag events
+      function mouseup(e) {
+        $document.unbind('mousemove', mousemove);
+        $document.unbind('mouseup', mouseup);
+        if (stop) stop(e);
+      }
+
+      // Move element, within container if provided
+      function setPosition() {
+        if (container) {
+          if (x < container.left) {
+            x = container.left;
+          } else if (x > container.right - width) {
+            x = container.right - width;
+          }
+          if (y < container.top) {
+            y = container.top;
+          } else if (y > container.bottom - height) {
+            y = container.bottom - height;
+          }
+        }
+
+        elem.css({
+          top: y + 'px',
+          left:  x + 'px'
+        });
+      }
+    }
+  }
+
+});
