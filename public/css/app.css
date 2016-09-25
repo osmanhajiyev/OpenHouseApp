@@ -82,6 +82,8 @@ input[type="range"]::-webkit-slider-thumb {
 
 .chartwrapper {
 position: absolute;
+    top: 20px;
+    left: 350px;
 z-index: 99;
  float: right;
  background-color: #C0C0C0;
