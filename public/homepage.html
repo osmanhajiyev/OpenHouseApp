@@ -12,6 +12,8 @@
 
 <div class="container" ng-controller="AppCtrl" ng-init="pullAppartmentsByName(userprofile.username)">
 
+<div ac-chart="pie" ac-data="{{data}}" ac-config="{{config}}" id='chart' class='chart'></div>
+
 <h2>Places you have lived</h2>
 <table class="table">
   <tbody>

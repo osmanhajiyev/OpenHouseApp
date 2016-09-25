@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute']);
+var myApp = angular.module('myApp', ['ngRoute', 'angularCharts']);
 
 myApp.config(function($routeProvider){
   console.log("I am running app config");
@@ -50,16 +50,8 @@ $scope.pullAppartmentsAggreatesByName = function(name) {
   });
 }
 
-<<<<<<< HEAD
 $scope.getSliderValue = function(id){
       document.getElementById(id).value=val;
-=======
-$scope.pullAppartmentsByPolygon = function(maxX, minX, maxY, minY) {
-  console.log("I am pulling appartments within co-ordinates " + maxX + " " + minX + " " + maxY + " " +  minY);
-  $http.get('/pullAppartmentsByPolygon/' + maxX + "/" + minX + "/" + maxY + "/" + minY).success(function(response) {
-    console.log(response);
-  });
->>>>>>> Corey
 }
 
 $scope.register = function(){
@@ -145,7 +137,7 @@ $scope.deselect = function() {
 
 $scope.updateTextInput = function(val) {
           console.log(val);
-          document.getElementById('textInput').value=val;
+          document.getElementById('textInput').value=val; 
         }
 
 }]);﻿
@@ -176,12 +168,8 @@ myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', funct
 
     google.maps.event.addDomListener(drawingManager, 'polygoncomplete', 
     function(polygon) {
-      for(var i=0; i<polygons.length; i++){
-         polygons[i].setMap(null);
-      }
       polygons.push(polygon);
       polygon.addListener('click', showArrays);
-
     });
 
     var infoWindow = new google.maps.InfoWindow();
@@ -207,5 +195,41 @@ myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', funct
 
         infoWindow.open($scope.map);
     }
+
+        $scope.data = [{
+                    label: "Bakersfield Central",
+                    value: "880000"
+                },
+                {
+                    label: "Garden Groove harbour",
+                    value: "730000"
+                },
+                {
+                    label: "Los Angeles Topanga",
+                    value: "590000"
+                },
+                {
+                    label: "Compton-Rancho Dom",
+                    value: "520000"
+                },
+                {
+                    label: "Daly City Serramonte",
+                    value: "330000"
+                }];
+    $scope.config = {
+  title: '',
+  tooltips: true,
+  labels: false,
+  mouseover: function() {},
+  mouseout: function() {},
+  click: function() {},
+  legend: {
+    display: true,
+    //could be 'left, right'
+    position: 'left'
+  },
+  innerRadius: 0, // applicable on pieCharts, can be a percentage like '50%'
+  lineLegend: 'lineEnd' // can be also 'traditional'
+} 
 
 }]);
