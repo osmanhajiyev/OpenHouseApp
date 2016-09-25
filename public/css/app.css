@@ -321,3 +321,20 @@ form.panel {
     background-color: #2a2730;
 }
 
+.chart {
+ z-index: 99;
+ width: 400px;
+ height: 400px;
+}
+
+.chartwrapper {
+	position: absolute;
+ float: right;
+ background-color: #C0C0C0;
+ opacity: 0.85;
+}
+
+.chartwrapper:hover {
+	cursor: pointer;
+}
+

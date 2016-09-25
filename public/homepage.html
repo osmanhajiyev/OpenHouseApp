@@ -36,6 +36,15 @@
 </nav>
 
 <div ng-controller="mapCtrl">
+	<div class="chartwrapper" ng-draggable="dragOptions" style="z-index: 99;">
+<div 
+    ac-chart="'bar'" 
+    ac-data="data22" 
+    ac-config="config22" 
+    class="chart">
+  </div>
+ </div>
+
 <div class="side">
 		<div class="panel chrono">
 		<div class="day field select">
@@ -92,7 +101,9 @@
 		
 	</div>
     <div id="map"></div>
+        
 </div>
+
 <script src="Scripts/angular-ui-bootstrap.js"></script>
 
 
@@ -100,7 +111,7 @@
 <footer class="openhouse-footer">
   <div class="container">
     <p>Designed and built on Vancouver Startup Week Hackathon by team OpenHouse.</p>
-    <div ac-chart="chartType" ac-data="{{data}}" ac-config="{{config}}" id='chart' class='chart'></div>
+
     <!-- <p>Code licensed <a href="https://github.com/twbs/bootstrap/blob/master/LICENSE" target="_blank" rel="license">MIT</a>, docs <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="license">CC BY 3.0</a>.</p> -->
   </div>
 </footer>
