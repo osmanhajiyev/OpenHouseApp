@@ -221,6 +221,11 @@ myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', funct
        zoom: 12,
        center: new google.maps.LatLng(49.2827, -123.116226),
        mapTypeId: google.maps.MapTypeId.ROADMAP,
+       mapTypeControl: true,
+        mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+        position: google.maps.ControlPosition.TOP_RIGHT
+      },
 
    }
 
@@ -233,11 +238,6 @@ myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', funct
            position: google.maps.ControlPosition.BOTTOM_CENTER,
            drawingModes: ['polygon']
        },
-       mapTypeControl: true,
-        mapTypeControlOptions: {
-        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-        position: google.maps.ControlPosition.TOP_RIGHT
-    },
    });
 
    drawingManager.setMap($scope.map);
