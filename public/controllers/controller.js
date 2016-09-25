@@ -126,42 +126,55 @@ $scope.updateTextInput = function(val) {
 
 
 myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', function($scope, $http, $rootScope, $location) {
- var mapOptions = {
-                  zoom: 8,
-                  center: new google.maps.LatLng(49, -123),
-                  mapTypeId: google.maps.MapTypeId.ROADMAP
-              }
+    var mapOptions = {
+        zoom: 5,
+        center: new google.maps.LatLng(24.886, -70.268),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
 
-              $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    
 
-              $scope.markers = [];
+    var drawingManager = new google.maps.drawing.DrawingManager({
+        drawingMode: google.maps.drawing.OverlayType.MARKER,
+        drawingControl: true,
+        drawingControlOptions: {
+            position: google.maps.ControlPosition.TOP_CENTER,
+            drawingModes: ['polygon']
+        }
+    });
 
-              var infoWindow = new google.maps.InfoWindow();
+    drawingManager.setMap($scope.map);
+    var polygons = [];
 
-              var createMarker = function (info){
+    google.maps.event.addDomListener(drawingManager, 'polygoncomplete', 
+    function(polygon) {
+      polygons.push(polygon);
+      polygon.addListener('click', showArrays);
+    });
 
-                  var marker = new google.maps.Marker({
-                      map: $scope.map,
-                      position: new google.maps.LatLng(info.lat, info.long),
-                      title: info.place
-                  });
-                  marker.content = '<div class="infoWindowContent">' + info.desc + '<br />' + info.lat + ' E,' + info.long +  ' N, </div>';
+    var infoWindow = new google.maps.InfoWindow();
 
-                  google.maps.event.addListener(marker, 'click', function(){
-                      infoWindow.setContent('<h2>' + marker.title + '</h2>' +
-                        marker.content);
-                      infoWindow.open($scope.map, marker);
-                  });
+    function showArrays(event) {
+        // Since this polygon has only one path, we can call getPath() to return the
+        // MVCArray of LatLngs.
+        var vertices = this.getPath();
 
-                  $scope.markers.push(marker);
+        var contentString = 'Clicked location: <br>' + event.latLng.lat() + ',' + event.latLng.lng() +
+            '<br>';
 
-              }
+        // Iterate over the vertices.
+        for (var i =0; i < vertices.getLength(); i++) {
+          var xy = vertices.getAt(i);
+          contentString += '<br>' + 'Coordinate ' + i + ':<br>' + xy.lat() + ',' +
+              xy.lng();
+        }
 
+        // Replace the info window's content and position.
+        infoWindow.setContent(contentString);
+        infoWindow.setPosition(event.latLng);
 
-              $scope.openInfoWindow = function(e, selectedMarker){
-                  e.preventDefault();
-                  google.maps.event.trigger(selectedMarker, 'click');
-              }
+        infoWindow.open($scope.map);
+    }
 
-
-  }]);
+}]);
