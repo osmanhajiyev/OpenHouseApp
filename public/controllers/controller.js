@@ -50,8 +50,11 @@ $scope.pullAppartmentsAggreatesByName = function(name) {
   });
 }
 
-$scope.getSliderValue = function(id){
-      document.getElementById(id).value=val;
+$scope.pullAppartmentsByPolygon = function(maxX, minX, maxY, minY) {
+  console.log("I am pulling appartments within co-ordinates " + maxX + " " + minX + " " + maxY + " " +  minY);
+  $http.get('/pullAppartmentsByPolygon/' + maxX + "/" + minX + "/" + maxY + "/" + minY).success(function(response) {
+    console.log(response);
+  });
 }
 
 $scope.register = function(){
@@ -146,16 +149,16 @@ $scope.updateTextInput = function(val) {
 
 myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', function($scope, $http, $rootScope, $location) {
     var mapOptions = {
-        zoom: 5,
-        center: new google.maps.LatLng(24.886, -70.268),
+        zoom: 12,
+        center: new google.maps.LatLng(49.2827, -123.116226),
         mapTypeId: google.maps.MapTypeId.ROADMAP
     }
 
     $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
-    
+
 
     var drawingManager = new google.maps.drawing.DrawingManager({
-        drawingMode: google.maps.drawing.OverlayType.MARKER,
+        drawingMode: google.maps.drawing.OverlayType.POLYGON,
         drawingControl: true,
         drawingControlOptions: {
             position: google.maps.ControlPosition.TOP_CENTER,
@@ -166,7 +169,7 @@ myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', funct
     drawingManager.setMap($scope.map);
     var polygons = [];
 
-    google.maps.event.addDomListener(drawingManager, 'polygoncomplete', 
+    google.maps.event.addDomListener(drawingManager, 'polygoncomplete',
     function(polygon) {
       polygons.push(polygon);
       polygon.addListener('click', showArrays);

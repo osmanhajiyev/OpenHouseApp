@@ -73,6 +73,7 @@ input[type="range"]::-webkit-slider-thumb {
 	margin-bottom: 0;
 }
 
+<<<<<<< HEAD
 a {
 	color: #24c;
 }
@@ -306,3 +307,17 @@ form.panel {
 .last td {
 	padding-bottom: .5em;
 }
+=======
+.navbar {
+	margin-top: 20px;
+}
+
+.openhouse-footer {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-top: 100px;
+    color: #99979c;
+    text-align: left;
+    background-color: #2a2730;
+}
+>>>>>>> cb49b7aeb130d8146857edd83465bdee6a810e4f
