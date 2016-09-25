@@ -1,5 +1,3 @@
-// MEAN Stack RESTful API Tutorial - Contact List App
-
 var express = require('express');
 var app = express();
 var mongojs = require('mongojs');
@@ -13,7 +11,6 @@ var passport  = require('passport');
 var config      = require('./public/config/database'); // get db config file
 var User        = require('./public/models/user'); // get the mongoose model
 var jwt         = require('jwt-simple');
-
 
 // get our request parameters
 app.use(express.static(__dirname + '/public'));
@@ -88,6 +85,13 @@ app.get('/appartmentsByName/:name', function (req, res) {
   });
 });
 
+app.get('/pullAllAppartments/', function (req, res) {
+  console.log('I received a GET request for all appartments');
+  db.openhouse.find( {}, function (err, doc) {
+    res.json(doc);
+  });
+});
+
 app.get('/pullAppartmentsAggreatesByName/:name', function (req, res) {
   var name = req.params.name;
   console.log('I received a GET request for appartments aggregates with name: ' + name);
@@ -96,26 +100,6 @@ app.get('/pullAppartmentsAggreatesByName/:name', function (req, res) {
     { $group: { _id: "$username", averageCost: { $avg: "$cost" } } }
   ], function(err, doc) {
     res.json(doc[0]);
-  });
-});
-
-app.get('/pullAppartmentsByPolygon/:maxX/:minX/:maxY/:minY', function (req, res) {
-  var maxX = req.params.maxX;
-  var minX = req.params.minX;
-  var maxY = req.params.maxY;
-  var minY = req.params.minY;
-  console.log('I received a GET request for appartments within: ' + maxX + " " + minX + " " + maxY + " " +  minY);
-  db.openhouse.find({
-      "lat" : {
-        "$lt" : 1000,
-        "$gt" : -1000
-      },
-      "lng" : {
-        "$lt" : 1000,
-        "$gt" : -1000
-      }}, function(err, doc) {
-    console.log(doc);
-    res.json(doc);
   });
 });
 
