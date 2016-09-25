@@ -128,7 +128,8 @@ var mapOptions = {
   var triangleCoords = [
   {lat: 25.774, lng: -80.190},
   {lat: 18.466, lng: -66.118},
-  {lat: 32.321, lng: -64.757}
+  {lat: 32.321, lng: -64.757},
+  {lat: 50.321, lng: -55.757}
   ];
 
   // Construct the polygon.
@@ -142,8 +143,6 @@ var mapOptions = {
     });
     
     bermudaTriangle.setMap($scope.map);
-
-
 
     var drawingManager = new google.maps.drawing.DrawingManager({
         drawingMode: google.maps.drawing.OverlayType.MARKER,
@@ -166,14 +165,17 @@ var mapOptions = {
 
     // Add a listener for the click event.
     bermudaTriangle.addListener('click', showArrays);
-    //userCreatedShape.addListener('click', showArrays);
 
     drawingManager.setMap($scope.map);
+    var polygons = [];
+
+    google.maps.event.addDomListener(drawingManager, 'polygoncomplete', 
+    function(polygon) {
+      polygons.push(polygon);
+      polygon.addListener('click', showArrays);
+    });
 
     var infoWindow = new google.maps.InfoWindow();
-
-
-
 
     function showArrays(event) {
         // Since this polygon has only one path, we can call getPath() to return the
