@@ -50,6 +50,13 @@ $scope.pullAppartmentsAggreatesByName = function(name) {
   });
 }
 
+$scope.pullAppartmentsByPolygon = function(maxX, minX, maxY, minY) {
+  console.log("I am pulling appartments within co-ordinates " + maxX + " " + minX + " " + maxY + " " +  minY);
+  $http.get('/pullAppartmentsByPolygon/' + maxX + "/" + minX + "/" + maxY + "/" + minY).success(function(response) {
+    console.log(response);
+  });
+}
+
 $scope.register = function(){
   $http.post('/register', $scope.vm)
                .success(function (response) {
@@ -118,7 +125,7 @@ $scope.deselect = function() {
 
 $scope.updateTextInput = function(val) {
           console.log(val);
-          document.getElementById('textInput').value=val; 
+          document.getElementById('textInput').value=val;
         }
 
 }]);﻿
