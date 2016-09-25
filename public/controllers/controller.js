@@ -22,8 +22,6 @@ myApp.config(function($routeProvider){
 });
 
 myApp.controller('AppCtrl', ['$scope', '$http', '$rootScope', '$location', function($scope, $http, $rootScope, $location) {
-  console.log("Hello World from controller");
-
 
   var refresh = function() {
     $http.get('/openhouse').success(function(response) {
@@ -39,78 +37,14 @@ myApp.controller('AppCtrl', ['$scope', '$http', '$rootScope', '$location', funct
       $scope.appartmentList = response;
       $scope.pullAppartmentsAggreatesByName(name);
     });
-  }
-
-$scope.pullAppartmentsByPolygon = function(maxX, minX, maxY, minY) {
-  console.log("I am pulling appartments within co-ordinates " + maxX + " " + minX + " " + maxY + " " +  minY);
-  $http.get('/pullAppartmentsByPolygon/' + maxX + "/" + minX + "/" + maxY + "/" + minY).success(function(response) {
-    console.log(response);
-  });
-}
-
-$scope.register = function(){
-  $http.post('/register', $scope.vm)
-               .success(function (response) {
-                console.log("We registered");
-                if(response.success){
-                  console.log("We succesfully registered");
-                    $rootScope.loggedIn =true;
-                    $rootScope.userprofile = response.user;
-                    $location.path('/userinfo');
-                  }
-               });
-}
-
-
-$scope.login = function(){
-  $http.post('/authenticate', $scope.vm)
-               .success(function (response) {
-                if(response.success){
-                   $rootScope.loggedIn =true;
-                   $rootScope.userprofile = response.user;
-                   $location.path('/homepage');
-                }
-               });
-}
-
-$scope.addUser = function() {
-  console.log("I added a user");
-  if($scope.user.food == undefined){
-    $scope.user.food = 5;
-
-  $scope.pullAppartmentsAggreatesByName = function(name) {
-    console.log("pulling appartments aggregates with name: " + name);
-    $http.get('/pullAppartmentsAggreatesByName/' + name).success(function(response) {
-      $scope.averages = response;
-    });
-  }
-
-  //Takes a polygon and finds all appartments inside the polygon
-  $scope.pullAllAppartments = function(polygon) {
-    console.log("pulling all appartments");
-    $http.get('/pullAllAppartments').success(function(response) {
-      var allAppartments = response;
-      var confirmedAppartments = [];
-      for (i = 0; i < allAppartments.length; i++) {
-        var myLatlng = new google.maps.LatLng(allAppartments[i].lat, allAppartments[i].lng);
-        if(google.maps.geometry.poly.containsLocation(myLatlng, polygon)) {
-            confirmedAppartments.push(allAppartments[i]);
-        }
-      }
-      $scope.confirmedAppartments = confirmedAppartments;
-    });
-  }
-
-  $scope.getSliderValue = function(id){
-    document.getElementById(id).value=val;
-  }
+  };
 
   $scope.pullAppartmentsByPolygon = function(maxX, minX, maxY, minY) {
     console.log("I am pulling appartments within co-ordinates " + maxX + " " + minX + " " + maxY + " " +  minY);
     $http.get('/pullAppartmentsByPolygon/' + maxX + "/" + minX + "/" + maxY + "/" + minY).success(function(response) {
-
+      console.log(response);
     });
-  }
+  };
 
   $scope.register = function(){
     $http.post('/register', $scope.vm)
@@ -123,7 +57,8 @@ $scope.addUser = function() {
         $location.path('/userinfo');
       }
     });
-  }
+  };
+
 
   $scope.login = function(){
     $http.post('/authenticate', $scope.vm)
@@ -134,7 +69,72 @@ $scope.addUser = function() {
         $location.path('/homepage');
       }
     });
+  };
+
+  $scope.addUser = function() {
+    console.log("I added a user");
+    if($scope.user.food == undefined){
+      $scope.user.food = 5;
+    }
   }
+
+  $scope.pullAppartmentsAggreatesByName = function(name) {
+    console.log("pulling appartments aggregates with name: " + name);
+    $http.get('/pullAppartmentsAggreatesByName/' + name).success(function(response) {
+      $scope.averages = response;
+    });
+  };
+
+  //Takes a polygon and finds all appartments inside the polygon
+  $scope.pullAllAppartments = function(polygon) {
+    console.log("pulling all appartments");
+    $http.get('/pullAllAppartments').success(function(response) {
+      var allAppartments = response;
+      var confirmedAppartments = [];
+      for (i = 0; i < allAppartments.length; i++) {
+        var myLatlng = new google.maps.LatLng(allAppartments[i].lat, allAppartments[i].lng);
+        if(google.maps.geometry.poly.containsLocation(myLatlng, polygon)) {
+          confirmedAppartments.push(allAppartments[i]);
+        }
+      }
+      $scope.confirmedAppartments = confirmedAppartments;
+    });
+  };
+
+  $scope.getSliderValue = function(id){
+    document.getElementById(id).value=val;
+  };
+
+  $scope.pullAppartmentsByPolygon = function(maxX, minX, maxY, minY) {
+    console.log("I am pulling appartments within co-ordinates " + maxX + " " + minX + " " + maxY + " " +  minY);
+    $http.get('/pullAppartmentsByPolygon/' + maxX + "/" + minX + "/" + maxY + "/" + minY).success(function(response) {
+
+    });
+  };
+
+  $scope.register = function(){
+    $http.post('/register', $scope.vm)
+    .success(function (response) {
+      console.log("We registered");
+      if(response.success){
+        console.log("We succesfully registered");
+        $rootScope.loggedIn =true;
+        $rootScope.userprofile = response.user;
+        $location.path('/userinfo');
+      }
+    });
+  };
+
+  $scope.login = function(){
+    $http.post('/authenticate', $scope.vm)
+    .success(function (response) {
+      if(response.success){
+        $rootScope.loggedIn =true;
+        $rootScope.userprofile = response.user;
+        $location.path('/homepage');
+      }
+    });
+  };
 
   $scope.addUser = function() {
     console.log("I added a user");
@@ -163,7 +163,6 @@ $scope.addUser = function() {
         $location.path('/homepage');
       });
     });
-
   };
 
   $scope.remove = function(id) {
@@ -189,19 +188,14 @@ $scope.addUser = function() {
 
   $scope.deselect = function() {
     $scope.user = "";
-  }
+  };
 
-<<<<<<< HEAD
-$scope.updateTextInput = function(val) {
-          console.log(val);
-          document.getElementById('textInput').value=val;
-        }
-=======
   $scope.updateTextInput = function(val) {
     console.log(val);
     document.getElementById('textInput').value=val;
   }
->>>>>>> Corey
+
+  console.log("What it do, dis is de controlla' biotch");
 
 }]);﻿
 
@@ -213,13 +207,13 @@ myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', funct
     mapTypeId: google.maps.MapTypeId.ROADMAP
   }
 
-<<<<<<< HEAD
-    google.maps.event.addDomListener(drawingManager, 'polygoncomplete',
-    function(polygon) {
-      polygons.push(polygon);
-      polygon.addListener('click', showArrays);
-    });
-=======
+
+  google.maps.event.addDomListener(drawingManager, 'polygoncomplete',
+  function(polygon) {
+    polygons.push(polygon);
+    polygon.addListener('click', showArrays);
+  });
+
   $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
   var drawingManager = new google.maps.drawing.DrawingManager({
@@ -230,7 +224,7 @@ myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', funct
       drawingModes: ['polygon']
     }
   });
->>>>>>> Corey
+
 
   drawingManager.setMap($scope.map);
   var polygons = [];
@@ -248,40 +242,40 @@ myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', funct
 
   });
 
-        $scope.data = [{
-                    label: "Bakersfield Central",
-                    value: "880000"
-                },
-                {
-                    label: "Garden Groove harbour",
-                    value: "730000"
-                },
-                {
-                    label: "Los Angeles Topanga",
-                    value: "590000"
-                },
-                {
-                    label: "Compton-Rancho Dom",
-                    value: "520000"
-                },
-                {
-                    label: "Daly City Serramonte",
-                    value: "330000"
-                }];
-    $scope.config = {
-  title: '',
-  tooltips: true,
-  labels: false,
-  mouseover: function() {},
-  mouseout: function() {},
-  click: function() {},
-  legend: {
-    display: true,
-    //could be 'left, right'
-    position: 'left'
+  $scope.data = [{
+    label: "Bakersfield Central",
+    value: "880000"
   },
-  innerRadius: 0, // applicable on pieCharts, can be a percentage like '50%'
-  lineLegend: 'lineEnd' // can be also 'traditional'
-}
+  {
+    label: "Garden Groove harbour",
+    value: "730000"
+  },
+  {
+    label: "Los Angeles Topanga",
+    value: "590000"
+  },
+  {
+    label: "Compton-Rancho Dom",
+    value: "520000"
+  },
+  {
+    label: "Daly City Serramonte",
+    value: "330000"
+  }];
+  $scope.config = {
+    title: '',
+    tooltips: true,
+    labels: false,
+    mouseover: function() {},
+    mouseout: function() {},
+    click: function() {},
+    legend: {
+      display: true,
+      //could be 'left, right'
+      position: 'left'
+    },
+    innerRadius: 0, // applicable on pieCharts, can be a percentage like '50%'
+    lineLegend: 'lineEnd' // can be also 'traditional'
+  }
 
 }]);
