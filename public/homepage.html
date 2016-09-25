@@ -2,12 +2,15 @@
 <html ng-app="myApp">
 <head>
 
+<title>OpenHouse Dashboard</title>
 
 </head>
 
 <body>
 
 <div class="container" ng-controller="AppCtrl" ng-init="pullAppartmentsByName(userprofile.username)">
+
+
 
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -36,7 +39,8 @@
 </nav>
 
 <div ng-controller="mapCtrl">
-	<div class="chartwrapper" ng-draggable="dragOptions" style="z-index: 99;">
+
+<div class="chartwrapper" ng-draggable="dragOptions">
 <div 
     ac-chart="'bar'" 
     ac-data="data22" 
@@ -47,24 +51,16 @@
 
 <div class="side">
 		<div class="panel chrono">
-		<div class="day field select">
-				<select id="day-select">
-					<option value="2016">2016</option>
-					<option value="2015">2015</option>
-					<option value="2014">2014</option>
-					<option value="2013">2013</option>
-				</select>
-			</div>
-			
 			<div class="slider">
-				<input id="time-slider" type="range" min="1970" max="2016">
+				<input id="time-slider" type="range" min="500" max="20000">
+				<p class="pull-left">$500</p><p class="pull-right">$20 000</p>
 			</div>
 		</div>
-		<div class="panel about">
+<!-- 		<div class="panel about">
 		<p>
 		Filter your local housing marking by a variety of filters.
 		</p>
-		</div>
+		</div> -->
 		<div class="panel filters">
 			<fieldset>
 				<h4>Type of Unit:</h4>
@@ -98,7 +94,7 @@
 
 		</div>
 		<div id="table-toggle" class="panel button disabled">Show Table</div>
-		
+
 	</div>
     <div id="map"></div>
         
@@ -106,14 +102,8 @@
 
 <script src="Scripts/angular-ui-bootstrap.js"></script>
 
-
 </div>
-<footer class="openhouse-footer">
-  <div class="container">
-    <p>Designed and built on Vancouver Startup Week Hackathon by team OpenHouse.</p>
 
-    <!-- <p>Code licensed <a href="https://github.com/twbs/bootstrap/blob/master/LICENSE" target="_blank" rel="license">MIT</a>, docs <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="license">CC BY 3.0</a>.</p> -->
-  </div>
-</footer>
+
 </body>
 </html>
