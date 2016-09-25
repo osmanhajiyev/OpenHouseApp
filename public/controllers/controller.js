@@ -50,6 +50,17 @@ $scope.pullAppartmentsAggreatesByName = function(name) {
   });
 }
 
+$scope.getSliderValue = function(id){
+      document.getElementById(id).value=val;
+    }
+
+$scope.pullAppartmentsByPolygon = function(maxX, minX, maxY, minY) {
+  console.log("I am pulling appartments within co-ordinates " + maxX + " " + minX + " " + maxY + " " +  minY);
+  $http.get('/pullAppartmentsByPolygon/' + maxX + "/" + minX + "/" + maxY + "/" + minY).success(function(response) {
+    console.log(response);
+  });
+}
+
 $scope.register = function(){
   $http.post('/register', $scope.vm)
                .success(function (response) {
@@ -77,6 +88,21 @@ $scope.login = function(){
 
 $scope.addUser = function() {
   console.log("I added a user");
+  if($scope.user.food == undefined){
+    $scope.user.food = 5;
+  }
+  if($scope.user.satisfied == undefined){
+    $scope.user.satisfied = 5;
+  }
+  if($scope.user.nightlife == undefined){
+    $scope.user.nightlife = 5;
+  }
+  if($scope.user.schools == undefined){
+    $scope.user.schools = 5;
+  }
+  if($scope.user.transit == undefined){
+    $scope.user.transit = 5;
+  }
   console.log($scope.user);
     $http.get('http://maps.google.com/maps/api/geocode/json?address=' + $scope.user.zipcode).success(function(mapData) {
       angular.extend($scope, mapData);
@@ -118,7 +144,7 @@ $scope.deselect = function() {
 
 $scope.updateTextInput = function(val) {
           console.log(val);
-          document.getElementById('textInput').value=val; 
+          document.getElementById('textInput').value=val;
         }
 
 }]);﻿
@@ -133,7 +159,7 @@ myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', funct
     }
 
     $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
-    
+
 
     var drawingManager = new google.maps.drawing.DrawingManager({
         drawingMode: google.maps.drawing.OverlayType.MARKER,
@@ -147,10 +173,14 @@ myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', funct
     drawingManager.setMap($scope.map);
     var polygons = [];
 
-    google.maps.event.addDomListener(drawingManager, 'polygoncomplete', 
+    google.maps.event.addDomListener(drawingManager, 'polygoncomplete',
     function(polygon) {
+      for(var i=0; i<polygons.length; i++){
+         polygons[i].setMap(null);
+      }
       polygons.push(polygon);
       polygon.addListener('click', showArrays);
+
     });
 
     var infoWindow = new google.maps.InfoWindow();

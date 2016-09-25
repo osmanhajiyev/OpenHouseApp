@@ -13,7 +13,6 @@
   <div class="container" ng-controller="AppCtrl">
     <h1>OpenHouse</h1>
 
-
 <div class="col-md-6 col-md-offset-3" ng-controller="AppCtrl">
     <h2>Provide some information :)</h2>
     <p>OpenHouse users need to provide information about themselves in order to see information about others</p>
@@ -33,7 +32,7 @@
         </div>
         <div class="form-group">
             <label style="padding-right: 20px;" for="unitType">Type of unit? </label>
-        <select>
+        <select type="bedrooms" name="unitType" id="unitType"  ng-model="user.unitType">
              <option value="basement">Basement</option>
              <option value="condo">Condominium</option>
              <option value="house">House</option>
@@ -69,23 +68,23 @@
         </div>
         <div class="form-group">
             <label for="satisfied">How satisfied are you? </label>
-            <input id="satisfied" type="range" value="5" min="0" max="10" ng-model:"user.satisfied"></td>
+            <input id="satisfied" type="range" name="satisfied" value="5" min="0" max="10" ng-model="user.satisfied"></td>
         </div>
         <div class="form-group">
-            <label for="food">Rate the food in the area? </label>
-            <input id="food" type="range" value="5" min="0" max="10" ng-model:"user.food"></td>
+            <label for="food">Rate the food in your area? </label>
+            <input id="food" type="range" name="food" value="5" min="0" max="10" ng-model="user.food"></td>
         </div>
         <div class="form-group">
-            <label for="schools">Rate the schools in the area? </label>
-            <input id="schools" type="range" value="5" min="0" max="10" ng-model:"user.schools"></td>
+            <label for="schools">Rate the schools in your area? </label>
+            <input id="schools" type="range" name="schools" value="5" min="0" max="10" ng-model="user.schools"></td>
         </div>
         <div class="form-group">
-            <label for="nightlife">Rate the nightlife in the area? </label>
-            <input id="nightlife" type="range" value="5" min="0" max="10" ng-model:"user.nightlife"></td>
+            <label for="nightlife">Rate the nightlife in your area? </label>
+            <input id="nightlife" type="range" name="nightlife" value="5" min="0" max="10" ng-model="user.nightlife"></td>
         </div>
         <div class="form-group">
-            <label for="transit">Rate the access to transit in the area? </label>
-            <input id="transit" type="range" value="5" min="0" max="10" ng-model:"user.transit"></td>
+            <label for="transit">Rate the access to public transit in your area? </label>
+            <input id="transit" type="range" name="transit" value="5" min="0" max="10" ng-model="user.transit"></td>
         </div>
         <div class="form-actions">
             <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Register</button>
