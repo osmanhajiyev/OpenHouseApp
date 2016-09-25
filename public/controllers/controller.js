@@ -50,6 +50,10 @@ $scope.pullAppartmentsAggreatesByName = function(name) {
   });
 }
 
+$scope.getSliderValue = function(id){
+      document.getElementById(id).value=val;
+}
+
 $scope.register = function(){
   $http.post('/register', $scope.vm)
                .success(function (response) {
@@ -77,6 +81,21 @@ $scope.login = function(){
 
 $scope.addUser = function() {
   console.log("I added a user");
+  if($scope.user.food == undefined){
+    $scope.user.food = 5;
+  }
+  if($scope.user.satisfied == undefined){
+    $scope.user.satisfied = 5;
+  }
+  if($scope.user.nightlife == undefined){
+    $scope.user.nightlife = 5;
+  }
+  if($scope.user.schools == undefined){
+    $scope.user.schools = 5;
+  }
+  if($scope.user.transit == undefined){
+    $scope.user.transit = 5;
+  }
   console.log($scope.user);
     $http.get('http://maps.google.com/maps/api/geocode/json?address=' + $scope.user.zipcode).success(function(mapData) {
       angular.extend($scope, mapData);
