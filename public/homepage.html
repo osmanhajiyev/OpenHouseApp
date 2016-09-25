@@ -59,9 +59,10 @@
 
 <div class="side">
 		<div class="panel chrono">
+			<p style="font-size: 16px">Filter by less than </p>
 			<div class="slider">
-				<input id="time-slider" type="range" min="500" max="20000">
-				<p class="pull-left">$500</p><p class="pull-right">$20 000</p>
+				<input id="time-slider" type="range" min="500" max="5000" ng-model="filter.cost">
+				<p class="pull-left">$500</p>  <p class="pull-right">$5 000</p>
 			</div>
 		</div>
 <!-- 		<div class="panel about">
@@ -72,8 +73,9 @@
 		<div class="panel filters">
 			<fieldset>
 				<h4>Type of Unit:</h4>
-				<div class="field select">
+				<div class="field select" ng-model="filter.unitType">
 					<select id="dept-select">
+							<option class="dept" value=""></option>
 							<option class="dept" value="basement">Basement</option>
 							<option class="dept" value="apartment">Apartment</option>
 							<option class="dept" value="house">House</option>
@@ -82,7 +84,7 @@
 				</div>
 				<h4>Bedrooms:</h4>
 				<div class="field select">
-					<select id="dept-select">
+					<select id="dept-select" ng-model="filter.bedrooms">
 							<option class="dept" value="1">1</option>
 							<option class="dept" value="2">2</option>
 							<option class="dept" value="3">3</option>
@@ -91,7 +93,7 @@
 				</div>
 				<h4>Bathrooms:</h4>
 				<div class="field select">
-					<select id="dept-select">
+					<select id="dept-select" ng-model="filter.bathrooms">
 							<option class="dept" value="1">1</option>
 							<option class="dept" value="2">2</option>
 							<option class="dept" value="3">3</option>
@@ -101,7 +103,7 @@
 			</fieldset>
 
 		</div>
-		<div id="table-toggle" class="panel button disabled">Show Table</div>
+		<div id="table-toggle" class="panel button disabled">Filter by these options!</div>
 
 	</div>
     <div id="map"></div>

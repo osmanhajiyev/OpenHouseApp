@@ -206,6 +206,7 @@ myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', funct
           confirmedAppartments.push(allAppartments[i]);
         }
       }
+      console.log($scope.filter);
       $scope.confirmedAppartments = confirmedAppartments;
       $scope.createDataAndConfig(confirmedAppartments);
     });
