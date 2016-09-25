@@ -22,7 +22,6 @@ myApp.config(function($routeProvider){
 });
 
 myApp.controller('AppCtrl', ['$scope', '$http', '$rootScope', '$location', function($scope, $http, $rootScope, $location) {
-  console.log("Hello World from controller");
 
   var refresh = function() {
     $http.get('/openhouse').success(function(response) {
@@ -86,7 +85,7 @@ myApp.controller('AppCtrl', ['$scope', '$http', '$rootScope', '$location', funct
       for (i = 0; i < allAppartments.length; i++) {
         var myLatlng = new google.maps.LatLng(allAppartments[i].lat, allAppartments[i].lng);
         if(google.maps.geometry.poly.containsLocation(myLatlng, polygon)) {
-            confirmedAppartments.push(allAppartments[i]);
+          confirmedAppartments.push(allAppartments[i]);
         }
       }
       $scope.confirmedAppartments = confirmedAppartments;
@@ -148,7 +147,6 @@ myApp.controller('AppCtrl', ['$scope', '$http', '$rootScope', '$location', funct
         $location.path('/homepage');
       });
     });
-
   };
 
   $scope.remove = function(id) {
@@ -172,13 +170,16 @@ myApp.controller('AppCtrl', ['$scope', '$http', '$rootScope', '$location', funct
   };
 
   $scope.deselect = function() {
-      $scope.user = "";
-  }
+
+  $scope.user = "";
+  };
 
   $scope.updateTextInput = function(val) {
             console.log(val);
             document.getElementById('textInput').value=val;
   }
+
+  console.log("What it do, dis is de controlla' biotch");
 
 }]);﻿
 
@@ -190,7 +191,6 @@ myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', funct
    }
 
    $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
 
    var drawingManager = new google.maps.drawing.DrawingManager({
        drawingMode: google.maps.drawing.OverlayType.POLYGON,
@@ -216,4 +216,5 @@ myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', funct
     $scope.pullAllAppartments(polygon);
 
    });
+
 }]);
