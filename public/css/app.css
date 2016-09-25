@@ -46,7 +46,7 @@ input[type="range"]::-webkit-slider-thumb {
 
 .side {
 	width: 300px;
-	position: fixed;
+	position: absolute;
 	z-index: 1;
 }
 
@@ -321,3 +321,7 @@ form.panel {
     background-color: #2a2730;
 }
 
+.ng-scope {
+	position: relative;
+	min-height: 450px;
+}

@@ -39,24 +39,16 @@
 <div ng-controller="mapCtrl">
 <div class="side">
 		<div class="panel chrono">
-		<div class="day field select">
-				<select id="day-select">
-					<option value="2016">2016</option>
-					<option value="2015">2015</option>
-					<option value="2014">2014</option>
-					<option value="2013">2013</option>
-				</select>
-			</div>
-
 			<div class="slider">
-				<input id="time-slider" type="range" min="1970" max="2016">
+				<input id="time-slider" type="range" min="500" max="20000">
+				<p class="pull-left">$500</p><p class="pull-right">$20 000</p>
 			</div>
 		</div>
-		<div class="panel about">
+<!-- 		<div class="panel about">
 		<p>
 		Filter your local housing marking by a variety of filters.
 		</p>
-		</div>
+		</div> -->
 		<div class="panel filters">
 			<fieldset>
 				<h4>Type of Unit:</h4>
@@ -97,12 +89,6 @@
 <script src="Scripts/angular-ui-bootstrap.js"></script>
 
 </div>
-<footer class="openhouse-footer">
-  <div class="container">
-    <p>Designed and built on Vancouver Startup Week Hackathon by team OpenHouse.</p>
-    <div ac-chart="chartType" ac-data="{{data}}" ac-config="{{config}}" id='chart' class='chart'></div>
-    <!-- <p>Code licensed <a href="https://github.com/twbs/bootstrap/blob/master/LICENSE" target="_blank" rel="license">MIT</a>, docs <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="license">CC BY 3.0</a>.</p> -->
-  </div>
-</footer>
+
 </body>
 </html>

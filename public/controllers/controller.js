@@ -187,7 +187,8 @@ myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', funct
    var mapOptions = {
        zoom: 12,
        center: new google.maps.LatLng(49.2827, -123.116226),
-       mapTypeId: google.maps.MapTypeId.ROADMAP
+       mapTypeId: google.maps.MapTypeId.ROADMAP,
+
    }
 
    $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
@@ -196,9 +197,14 @@ myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', funct
        drawingMode: google.maps.drawing.OverlayType.POLYGON,
        drawingControl: true,
        drawingControlOptions: {
-           position: google.maps.ControlPosition.TOP_CENTER,
+           position: google.maps.ControlPosition.BOTTOM_CENTER,
            drawingModes: ['polygon']
-       }
+       },
+       mapTypeControl: true,
+        mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+        position: google.maps.ControlPosition.TOP_RIGHT
+    },
    });
 
    drawingManager.setMap($scope.map);
