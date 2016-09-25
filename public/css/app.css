@@ -35,7 +35,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 #map {
-    width: 50%;
+    width: 100%;
 	height: 100%;
 }
 .infoWindowContent {
@@ -71,4 +71,17 @@ input[type="range"]::-webkit-slider-thumb {
 
 .filters fieldset:last-child {
 	margin-bottom: 0;
+}
+
+.navbar {
+	margin-top: 20px;
+}
+
+.openhouse-footer {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-top: 100px;
+    color: #99979c;
+    text-align: left;
+    background-color: #2a2730;
 }
