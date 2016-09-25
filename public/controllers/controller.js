@@ -52,6 +52,7 @@ $scope.pullAppartmentsAggreatesByName = function(name) {
 
 $scope.getSliderValue = function(id){
       document.getElementById(id).value=val;
+    }
 
 $scope.pullAppartmentsByPolygon = function(maxX, minX, maxY, minY) {
   console.log("I am pulling appartments within co-ordinates " + maxX + " " + minX + " " + maxY + " " +  minY);
