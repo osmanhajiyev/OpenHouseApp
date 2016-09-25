@@ -162,7 +162,7 @@ myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', funct
 
 
     var drawingManager = new google.maps.drawing.DrawingManager({
-        drawingMode: google.maps.drawing.OverlayType.MARKER,
+        drawingMode: google.maps.drawing.OverlayType.POLYGON,
         drawingControl: true,
         drawingControlOptions: {
             position: google.maps.ControlPosition.TOP_CENTER,
