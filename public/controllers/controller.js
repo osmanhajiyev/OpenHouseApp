@@ -50,8 +50,16 @@ $scope.pullAppartmentsAggreatesByName = function(name) {
   });
 }
 
+<<<<<<< HEAD
 $scope.getSliderValue = function(id){
       document.getElementById(id).value=val;
+=======
+$scope.pullAppartmentsByPolygon = function(maxX, minX, maxY, minY) {
+  console.log("I am pulling appartments within co-ordinates " + maxX + " " + minX + " " + maxY + " " +  minY);
+  $http.get('/pullAppartmentsByPolygon/' + maxX + "/" + minX + "/" + maxY + "/" + minY).success(function(response) {
+    console.log(response);
+  });
+>>>>>>> Corey
 }
 
 $scope.register = function(){
@@ -137,7 +145,7 @@ $scope.deselect = function() {
 
 $scope.updateTextInput = function(val) {
           console.log(val);
-          document.getElementById('textInput').value=val; 
+          document.getElementById('textInput').value=val;
         }
 
 }]);﻿

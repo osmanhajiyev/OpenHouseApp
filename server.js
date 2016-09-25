@@ -99,6 +99,26 @@ app.get('/pullAppartmentsAggreatesByName/:name', function (req, res) {
   });
 });
 
+app.get('/pullAppartmentsByPolygon/:maxX/:minX/:maxY/:minY', function (req, res) {
+  var maxX = req.params.maxX;
+  var minX = req.params.minX;
+  var maxY = req.params.maxY;
+  var minY = req.params.minY;
+  console.log('I received a GET request for appartments within: ' + maxX + " " + minX + " " + maxY + " " +  minY);
+  db.openhouse.find({
+      "lat" : {
+        "$lt" : 1000,
+        "$gt" : -1000
+      },
+      "lng" : {
+        "$lt" : 1000,
+        "$gt" : -1000
+      }}, function(err, doc) {
+    console.log(doc);
+    res.json(doc);
+  });
+});
+
 app.get('/openhouse', function (req, res) {
   console.log('I received a GET request updated');
   db.openhouse.find(function (err, docs) {
