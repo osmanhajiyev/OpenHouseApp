@@ -149,8 +149,12 @@ myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', funct
 
     google.maps.event.addDomListener(drawingManager, 'polygoncomplete', 
     function(polygon) {
+      for(var i=0; i<polygons.length; i++){
+         polygons[i].setMap(null);
+      }
       polygons.push(polygon);
       polygon.addListener('click', showArrays);
+
     });
 
     var infoWindow = new google.maps.InfoWindow();
