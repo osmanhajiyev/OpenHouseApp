@@ -37,64 +37,66 @@
 
 
 <div ng-controller="mapCtrl">
-<
+<div class="side">
+		<div class="panel chrono">
+		<div class="day field select">
+				<select id="day-select">
+					<option value="2016">2016</option>
+					<option value="2015">2015</option>
+					<option value="2014">2014</option>
+					<option value="2013">2013</option>
+				</select>
+			</div>
+			
+			<div class="slider">
+				<input id="time-slider" type="range" min="1970" max="2016">
+			</div>
+		</div>
+		<div class="panel about">
+		<p>
+		Filter your local housing marking by a variety of filters.
+		</p>
+		</div>
+		<div class="panel filters">
+			<fieldset>
+				<h4>Type of Unit:</h4>
+				<div class="field select">
+					<select id="dept-select">
+							<option class="dept" value="basement">Basement</option>
+							<option class="dept" value="apartment">Apartment</option>
+							<option class="dept" value="house">House</option>
+							<option class="dept" value="condominium">Condominium</option>
+					</select>
+				</div>
+				<h4>Bedrooms:</h4>
+				<div class="field select">
+					<select id="dept-select">
+							<option class="dept" value="1">1</option>
+							<option class="dept" value="2">2</option>
+							<option class="dept" value="3">3</option>
+							<option class="dept" value="4">4</option>
+					</select>
+				</div>
+				<h4>Bathroom:</h4>
+				<div class="field select">
+					<select id="dept-select">
+							<option class="dept" value="1">1</option>
+							<option class="dept" value="2">2</option>
+							<option class="dept" value="3">3</option>
+							<option class="dept" value="4">4</option>
+					</select>
+				</div>
+			</fieldset>
+
+		</div>
+		<div id="table-toggle" class="panel button disabled">Show Table</div>
+		
+	</div>
     <div id="map"></div>
 </div>
 <script src="Scripts/angular-ui-bootstrap.js"></script>
 
-<!-- <h2>Places you have lived</h2>
-<table class="table">
-  <tbody>
-    <thead>
-      <th></th>
-      <th>Cost</th>
-      <th>Zipcode</th>
-      <th>Unit Type</th>
-      <th>Bedrooms</th>
-      <th>Bathrooms</th>
-      <th>Schools</th>
-      <th>Community</th>
-      <th>Food</th>
-      <th>Nightlife</th>
-      <th>Transit</th>
-    </thead>
-    <tr ng-repeat="appartment in appartmentList">
-      <td></td>
-      <td>{{appartment.cost}}</td>
-      <td>{{appartment.zipcode}}</td>
-      <td>{{appartment.unitType}}</td>
-      <td>{{appartment.bedrooms}}</td>
-      <td>{{appartment.bathrooms}}</td>
-      <td>{{appartment.landlord}}</td>
-      <td>{{appartment.satisfied}}</td>
-      <td>{{appartment.food}}</td>
-      <td>{{appartment.schools}}</td>
-      <td>{{appartment.community}}</td>
-      <td>{{appartment.nightlife}}</td>
-      <td>{{appartment.transit}}</td>
-    </tr>
-    <tfoot>
-      <td>Averages</td>
-      <td>{{averages.averageCost}}</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tfoot>
-  </tbody>
-<<<<<<< HEAD
-</table>
-=======
-<<<<<<< HEAD
-</table> -->
->>>>>>> cb49b7aeb130d8146857edd83465bdee6a810e4f
+
 </div>
 <footer class="openhouse-footer">
   <div class="container">
