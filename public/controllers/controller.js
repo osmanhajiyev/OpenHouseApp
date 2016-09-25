@@ -146,8 +146,8 @@ $scope.updateTextInput = function(val) {
 
 myApp.controller('mapCtrl', ['$scope', '$http', '$rootScope', '$location', function($scope, $http, $rootScope, $location) {
     var mapOptions = {
-        zoom: 5,
-        center: new google.maps.LatLng(24.886, -70.268),
+        zoom: 12,
+        center: new google.maps.LatLng(49.2827, -123.116226),
         mapTypeId: google.maps.MapTypeId.ROADMAP
     }
 
